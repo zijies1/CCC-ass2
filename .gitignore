@@ -1,0 +1,11 @@
+###################
+#.gitignore       #
+###################
+
+############
+# SO files #
+############
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db

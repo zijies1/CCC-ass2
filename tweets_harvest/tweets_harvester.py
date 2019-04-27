@@ -55,12 +55,13 @@ if __name__ == '__main__':
 
     ## search method ##
     num = 0
-    for tweet in tweepy.Cursor(api.search,count=1000,geocode="-37.815338,144.963226,35km",tweet_mode='extended').items(1000):
+    for tweet in tweepy.Cursor(api.search,count=10000,geocode="-37.815338,144.963226,35km",tweet_mode='extended').items(10000):
         if tweet._json['coordinates']:
             num += 1
             print(tweet._json['created_at'])
             print(tweet._json['full_text'])
             print(tweet._json['place']['name'], tweet._json['coordinates']['coordinates'])
             print()
+    print('%d/10000 tweets have coordinates information'%num)
 
 

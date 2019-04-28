@@ -3,10 +3,10 @@ import json
 import couchdb
 
 # # app harvester1 keys
-# consumer_key = 'CP20F8yCMC85K26XY07w4XElp'
-# consumer_secret = '4t1r4cdlBPGVzkosnZ2gvBqXbet5MbuJIlkuN0JKYufWIdo4yM'
-# access_token = '1121041186305630208-hG4Jv9cfPOufx3vAgPpBUCODlWsHQH'
-# access_token_secret = 'OJSXpMxZDzY9XUo2gqoqZcLUyGY1C9duopI4032fywDPb'
+consumer_key = 'CP20F8yCMC85K26XY07w4XElp'
+consumer_secret = '4t1r4cdlBPGVzkosnZ2gvBqXbet5MbuJIlkuN0JKYufWIdo4yM'
+access_token = '1121041186305630208-hG4Jv9cfPOufx3vAgPpBUCODlWsHQH'
+access_token_secret = 'OJSXpMxZDzY9XUo2gqoqZcLUyGY1C9duopI4032fywDPb'
 
 # app harvester2 keys
 # consumer_key = '2BjmB9QN2UwT7BWGEYJc6mzyQ'
@@ -15,10 +15,10 @@ import couchdb
 # access_token_secret = 'dWIS8xzpbuB1T77UZSQCHJGBOX2uT7A82UmiwpyuSfrkq'
 
 # # app harvester3 keys
-consumer_key = 'W225IVMaLWc3Cio8Y2ZwHmwXT'
-consumer_secret = 'D0Gebz3e1xqrSKKCNbQPCwLsjNdQVZxHguLekTU4zCavWysswy'
-access_token = '1121041186305630208-vVcpClv576aYx9OJjVaWJkYA89m7eI'
-access_token_secret = 'ZjUk3ppAaudL4KR3oDQo3K6lDMZRKrnGvj2wYRpzfx1uP'
+# consumer_key = 'W225IVMaLWc3Cio8Y2ZwHmwXT'
+# consumer_secret = 'D0Gebz3e1xqrSKKCNbQPCwLsjNdQVZxHguLekTU4zCavWysswy'
+# access_token = '1121041186305630208-vVcpClv576aYx9OJjVaWJkYA89m7eI'
+# access_token_secret = 'ZjUk3ppAaudL4KR3oDQo3K6lDMZRKrnGvj2wYRpzfx1uP'
 
 # # app harvester4 keys
 # consumer_key = 'ahKRXTnEizWqy4oHC4uBFxWuu'
@@ -34,15 +34,22 @@ class TweetListener(tweepy.StreamListener):
     def on_status(self, status):
         try:
             if status._json['coordinates']:
-                print(status._json['created_at'])
+                created_at = status._json['created_at']
                 if status._json['truncated'] == True:
-                    print(status.extended_tweet['full_text'])
+                    text = status.extended_tweet['full_text']
                 else:
-                    print(status.text)
-                print(status._json['place']['name'], status._json['coordinates']['coordinates'])
+                    text = status.text
+                # text = text.encode('utf-8')
+                place = status._json['place']['name']
+                coordinates = status._json['coordinates']['coordinates']
+
+                dic = {'created_at':created_at,'text':text,'place':place,'coordinates':coordinates}
+                newjson = json.dumps(dic)
+                print(newjson)
                 print()
+                
         except:
-            print('error')
+            print('---Error---')
             print()
 
     def on_error(self, status):

@@ -31,15 +31,19 @@ class TweetListener(tweepy.StreamListener):
     #     self.__init__()
     #     self.node = couchnode
 
-    # def on_data(self, data):
-    #     tweet = json.loads(data)
-    #     if tweet['coordinates']:
-    #         print(tweet)
-    #         # node.save(tweet)
-    #         print()
-
     def on_status(self, status):
-        print(status.extended_tweet)
+        try:
+            if status._json['coordinates']:
+                print(status._json['created_at'])
+                if status._json['truncated'] == True:
+                    print(status.extended_tweet['full_text'])
+                else:
+                    print(status.text)
+                print(status._json['place']['name'], status._json['coordinates']['coordinates'])
+                print()
+        except:
+            print('error')
+            print()
 
     def on_error(self, status):
         print(status)
@@ -67,5 +71,5 @@ if __name__ == '__main__':
     coordinates = [144.593742, -38.433859, 145.512529, -37.511274]
 
     ## stream method ##
-    stream = tweepy.Stream(auth, tweetlistener)
+    stream = tweepy.Stream(auth, tweetlistener,tweet_mode='extended')
     stream.filter(locations=coordinates)

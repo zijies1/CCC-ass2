@@ -40,13 +40,14 @@ if __name__ == '__main__':
     api = tweepy.API(auth)
 
     ## search method ##
-    num = 0
-    for tweet in tweepy.Cursor(api.search,count=10000,geocode="-37.815338,144.963226,35km",tweet_mode='extended').items(10000):
+    past_N = 1000
+    counter = 0
+    for tweet in tweepy.Cursor(api.search,count=past_N,geocode="-37.815338,144.963226,35km",tweet_mode='extended').items(past_N):
         if tweet._json['coordinates']:
-            num += 1
+            counter += 1
             print(tweet._json['created_at'])
             print(tweet._json['full_text'])
             print(tweet._json['place']['name'], tweet._json['coordinates']['coordinates'])
             # node.save(tweet)
             print()
-    print('%d/10000 tweets have coordinates information'%num)
+    print('%d/%d tweets have coordinates information' % (counter,past_N))

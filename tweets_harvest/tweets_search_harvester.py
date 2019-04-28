@@ -1,5 +1,6 @@
 import tweepy
 import json
+import couchdb
 
 # # app harvester1 keys
 # consumer_key = 'CP20F8yCMC85K26XY07w4XElp'
@@ -25,33 +26,18 @@ access_token_secret = 'dWIS8xzpbuB1T77UZSQCHJGBOX2uT7A82UmiwpyuSfrkq'
 # access_token = '1121041186305630208-85TVCtBvNc3RjW9RjmcBdwJn5FKxQm'
 # access_token_secret = 'l3qRsugZsCt1MApDSjtCwMFS19Jms2Y2QiGpUPfzeWVit'
 
-class PrintListener(tweepy.StreamListener):
-    def on_data(self, data):
-        tweet = json.loads(data)
-        if tweet['coordinates']:
-            print(tweet)
-            print()
-
-    def on_error(self, status):
-        print(status)
-
 if __name__ == '__main__':
+    ## CouchDB info ##
+    # username = ""
+    # password = ""
+    # couchserver = couchdb.Server("http://%s:%scouchdb:5984/" % (username,password))
+    # nodename = ""
+    # node = couchserver[nodename]
+
     print('---------- Now collecting Tweets ----------')
-    listener = PrintListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
-    
-    ## melbourne location info ##
-    # city = 'Melbourne'
-    # placeid = '01864a8a64df9dc4'
-    # centre = [144.963226, -37.815338]
-    # geocode = "-37.815338,144.963226,35km"
-    # coordinates = [144.593742, -38.433859, 145.512529, -37.511274]
-
-    ## stream method ##
-    # stream = tweepy.Stream(auth, listener)
-    # stream.filter(locations=coordinates)
 
     ## search method ##
     num = 0
@@ -61,7 +47,6 @@ if __name__ == '__main__':
             print(tweet._json['created_at'])
             print(tweet._json['full_text'])
             print(tweet._json['place']['name'], tweet._json['coordinates']['coordinates'])
+            # node.save(tweet)
             print()
     print('%d/10000 tweets have coordinates information'%num)
-
-

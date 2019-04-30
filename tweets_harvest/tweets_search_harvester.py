@@ -26,6 +26,10 @@ access_token_secret = 'dWIS8xzpbuB1T77UZSQCHJGBOX2uT7A82UmiwpyuSfrkq'
 # access_token = '1121041186305630208-85TVCtBvNc3RjW9RjmcBdwJn5FKxQm'
 # access_token_secret = 'l3qRsugZsCt1MApDSjtCwMFS19Jms2Y2QiGpUPfzeWVit'
 
+sincedate = "2019-04-21"
+untildate = "2019-04-30"
+geo = "-37.815338,144.963226,35km"
+
 if __name__ == '__main__':
     ## CouchDB info ##
     # username = ""
@@ -42,7 +46,7 @@ if __name__ == '__main__':
     ## search method ##
     past_N = 10000
     counter = 0
-    for tweet in tweepy.Cursor(api.search,since="2019-04-21",until="2019-04-29",count=past_N,geocode="-37.815338,144.963226,35km",tweet_mode='extended').items(past_N):
+    for tweet in tweepy.Cursor(api.search,since=sincedate,until=untildate,count=past_N,geocode=geo,tweet_mode='extended').items(past_N):
         ## time, content, location
         try:
             created_at = tweet._json['created_at']
@@ -61,7 +65,7 @@ if __name__ == '__main__':
                 place = tweet._json['place']['name']
                 coordinates = tweet._json['coordinates']['coordinates']
                 # print()
-                
+
             dic = {'created_at':created_at,'text':text, 'photo':photo, 'place':place,'coordinates':coordinates}
             newjson = json.dumps(dic)
             print(newjson)

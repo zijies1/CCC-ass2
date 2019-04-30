@@ -43,19 +43,32 @@ if __name__ == '__main__':
     past_N = 10000
     counter = 0
     for tweet in tweepy.Cursor(api.search,since="2019-04-21",until="2019-04-29",count=past_N,geocode="-37.815338,144.963226,35km",tweet_mode='extended').items(past_N):
-        print(tweet)
-        if tweet._json['coordinates']:
-            counter += 1
-
+        ## time, content, location
+        try:
             created_at = tweet._json['created_at']
             text = tweet._json['full_text']
-            place = tweet._json['place']['name']
-            coordinates = tweet._json['coordinates']['coordinates']
-            
-            dic = {'created_at':created_at,'text':text,'place':place,'coordinates':coordinates}
+            ## get photo url if there is one
+            photo = None
+            if 'media' in tweet._json['entities']:
+                for media in tweet._json['entities']['media']:
+                    if media['type'] == 'photo':
+                        photo = media['media_url']
+                        # print(media['media_url'])
+            place = None
+            coordinates = None
+            if tweet._json['coordinates']:
+                counter += 1
+                place = tweet._json['place']['name']
+                coordinates = tweet._json['coordinates']['coordinates']
+                # print()
+                
+            dic = {'created_at':created_at,'text':text, 'photo':photo, 'place':place,'coordinates':coordinates}
             newjson = json.dumps(dic)
             print(newjson)
-            print()
             # node.save(newjson)
+
+        except:
+            print('---Error---')
+            print()
             
     print('%d/%d tweets have coordinates information' % (counter,past_N))

@@ -33,20 +33,28 @@ class TweetListener(tweepy.StreamListener):
 
     def on_status(self, status):
         try:
+            created_at = status._json['created_at']
+            if status._json['truncated'] == True:
+                text = status.extended_tweet['full_text']
+            else:
+                text = status.text
+            ## get photo url if there is one
+            photo = None
+            if 'media' in status._json['entities']:
+                for media in status._json['entities']['media']:
+                    if media['type'] == 'photo':
+                        photo = media['media_url']
+                        # print(media['media_url'])
+            place = None
+            coordinates = None
             if status._json['coordinates']:
-                created_at = status._json['created_at']
-                if status._json['truncated'] == True:
-                    text = status.extended_tweet['full_text']
-                else:
-                    text = status.text
-                # text = text.encode('utf-8')
                 place = status._json['place']['name']
                 coordinates = status._json['coordinates']['coordinates']
 
-                dic = {'created_at':created_at,'text':text,'place':place,'coordinates':coordinates}
-                newjson = json.dumps(dic)
-                print(newjson)
-                print()
+            dic = {'created_at':created_at,'text':text,'photo':photo,'place':place,'coordinates':coordinates}
+            newjson = json.dumps(dic)
+            print(newjson)
+            print()
                 
         except:
             print('---Error---')

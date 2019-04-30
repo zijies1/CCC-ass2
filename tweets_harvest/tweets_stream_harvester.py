@@ -54,11 +54,9 @@ class TweetListener(tweepy.StreamListener):
             dic = {'created_at':created_at,'text':text,'photo':photo,'place':place,'coordinates':coordinates}
             newjson = json.dumps(dic)
             print(newjson)
-            print()
                 
         except:
             print('---Error---')
-            print()
 
     def on_error(self, status):
         print(status)

@@ -1,0 +1,12 @@
+- hosts: localhost
+  vars_files:
+    - vars/vars.yml
+  gather_facts: true
+
+  tasks:
+    - name: get servers
+      os_server_facts:
+    - name: show
+      debug:
+        msg: '{{openstack_servers}}'
+

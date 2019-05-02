@@ -2,21 +2,29 @@ import json
 import os
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
+from random import randint
+
 
 twitter_file = '../tinyTwitter.json'
-the_greater_melbourne = '../TheGreaterMelbourne.geojson'
-
+source_melbourne = '../TheGreaterMelbourne.geojson'
+source_vic = '../vic.json'
 
 def inPolygon(coordinate,geometry):
     point = Point(coordinate[0],coordinate[1])
-    polygon = Polygon(geometry)
+    try:
+        polygon = Polygon(geometry)
+    except Exception:
+        if(len(geometry[0]) > 1):
+            polygon = Polygon(geometry[0])
+
     return polygon.contains(point)
 
 def twitterArea(coordinate,geometry_dic,count_dic):
     for x in geometry_dic:
-        if inPolygon(coordinate,geometry_dic[x]):
+        if inPolygon(coordinate,geometry_dic[str(x)]):
             count_dic[x]+=1
-            break;
+            break
+
 
 def initialize_dic(geometry_dic):
     count_dic = {}
@@ -24,26 +32,39 @@ def initialize_dic(geometry_dic):
         count_dic[x] = 0
     return count_dic
 
-def getGeometry():
+def getGeometry(geometry,id):
     geometry_dic = {}
-    fh = open(the_greater_melbourne, 'r')
+    fh = open(geometry, 'r')
     try:
         json_data = json.loads(fh.read())
         list = json_data["features"]
         polygon = list[0]["geometry"]["coordinates"]
         for polygon in list:
-            geometry_dic[polygon["properties"]["locname"]] = \
+            geometry_dic[str(polygon["properties"][id])] = \
                 polygon["geometry"]["coordinates"][0]
 
     except Exception as err:
-        print('Error: ', err)
+        pass
+        # print('Error: ', err)
     fh.close()
     return geometry_dic
 
-def count_tweets():
-    geometry_dic = getGeometry()
+def counts_to_geoJsonObject(cityName,geolocs,id,size):
+    final_str = "\n{\"type\": \"Feature\",\"id\":\"" + str(id) + "\","+ \
+             "\"properties\":{"+"\"name\":\"" + cityName + "\"," + \
+             "\"density\":" + str(size) + "}," +\
+             "\"geometry\": {\"type\":\"Polygon\",\"coordinates\":[["
+    last_index = len(geolocs)-1
+    for x in range(last_index):
+        final_str +=  "[" + str(geolocs[x][0]) + "," + str(geolocs[x][1]) + "],"
+    final_str +=  "[" + str(geolocs[last_index][0]) + "," +\
+                        str(geolocs[last_index][1]) + "]"
+    final_str += "]]}},"
+    return final_str
+
+def count_tweets(geometry,tw_file,id,geometry_dic):
     count_dic = initialize_dic(geometry_dic)
-    fh = open(twitter_file, 'r')
+    fh = open(tw_file, 'r')
     count = 0
     for line in fh:
         try:
@@ -59,23 +80,7 @@ def count_tweets():
     fh.close()
     return count_dic
 
-
-def counts_to_geoJsonObject(cityName,geolocs,id,size):
-    final_str = "\n{\"type\": \"Feature\",\"id\":\"" + str(id) + "\","+ \
-             "\"properties\":{"+"\"name\":\"" + cityName + "\"," + \
-             "\"density\":" + str(size) + "}," +\
-             "\"geometry\": {\"type\":\"Polygon\",\"coordinates\":[["
-    last_index = len(geolocs)-1
-    for x in range(last_index):
-        final_str +=  "[" + str(geolocs[x][0]) + "," + str(geolocs[x][1]) + "],"
-    final_str +=  "[" + str(geolocs[last_index][0]) + "," +\
-                        str(geolocs[last_index][1]) + "]"
-    final_str += "]]}},"
-    return final_str
-
-def write_to_file(count_dic,filename):
-    geometry_dic = getGeometry()
-    count_dic = count_tweets()
+def write_to_file(filename,count_dic,geometry_dic):
     fw = open(filename, 'w+')
     fw.write("{\"type\": \"FeatureCollection\",\n\"features\":[")
 

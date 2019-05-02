@@ -19,9 +19,9 @@ sincedate = "2019-04-21"
 untildate = "2019-04-30"
 geo = "-37.815338,144.963226,35km"
 
-username = "rongxiaol"
-password = "12345678"
-couchserver = couchdb.Server("http://%s:%s@127.0.0.1:5984/" % (username,password))
+username = "admin"
+password = "admin"
+couchserver = couchdb.Server("http://%s:%s@172.17.0.2:5984/" % (username,password))
 try:
 	db = couchserver.create('test')
 except:
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 				coordinates = tweet._json['coordinates']['coordinates']
 
 			# is_fastfood = is_fastfood_tweet(text)
-			
+
 
 			dic = {'created_at':created_at,'text':text, 'photo':photo, 'place':place,'coordinates':coordinates}
 			# newjson = json.dumps(dic)
@@ -111,5 +111,5 @@ if __name__ == '__main__':
 		except Exception as e:
 			print('-------Error-------')
 			print(e)
-			
+
 	print('%d/%d tweets have coordinates information' % (counter,past_N))

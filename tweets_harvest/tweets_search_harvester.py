@@ -105,8 +105,6 @@ if __name__ == '__main__':
 			# print(newjson)
 			try:
 				db.save(dic)
-				print(count)
-				print(dic)
 			except Exception as e:
 				print(e)
 

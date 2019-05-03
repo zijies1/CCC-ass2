@@ -15,14 +15,16 @@ class Lengend extends Component {
       <div>
         {layers.map((item, index) => (
           <span key={index}>
-            <span
-               className='legend-key'
-               style={{backgroundColor: colors[index]}}
-              >
-             </span>
-             <span>
-               {item}
-             </span>
+            <div>
+              <span
+                 className='legend-key'
+                 style={{backgroundColor: colors[index]}}
+                >
+               </span>
+               <span>
+                 {item}
+               </span>
+             </div>
            </span>
         ))}
       </div>

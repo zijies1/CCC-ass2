@@ -15,15 +15,6 @@ def get_api(app_id=0):
 	auth.set_access_token(access_token, access_token_secret)
 	return tweepy.API(auth,wait_on_rate_limit=True)
 
-def connect2db(username,password,IP,port,db_name):
-	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
-	try:
-		# return couchserver.create('test')
-		return couchserver.create(db_name)
-	except:
-		# return couchserver['test']
-		return couchserver[db_name]
-
 if __name__ == '__main__':
 	# if len(sys.argv) >= 2:
 	# 	city_name = sys.argv[1]

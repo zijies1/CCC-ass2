@@ -1,0 +1,376 @@
+{
+"features":
+ [
+{
+"type": "Feature",
+"properties":{
+"message":"week8/12(@murdochuniversityinmurdoch,wa)https://t.co/s0acfw712o"
+},
+"geometry": {
+"coordinates": 
+[115.83550238,-32.06761823],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"sametree,sametimedifferentmornings!@victoriapark,westernaustraliahttps://t.co/hd1qaxx5qi"
+},
+"geometry": {
+"coordinates": 
+[115.897,-31.9744],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"i'matredcatstop16(perthunderground)inperth,westernaustraliahttps://t.co/pacwl1jqux"
+},
+"geometry": {
+"coordinates": 
+[115.85755809,-31.95246327],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"gottolovethesesunrises@perth,westernaustraliahttps://t.co/tyd20aochy"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9522],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"electro-soundsfromthebottomofthewell@perth,westernaustraliahttps://t.co/lud76m2rzq"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9522],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"howgooddoesfreshhomemadebutterlook?useoiltokeepitsoft.@perth,westernaustraliahttps://t.co/wpzqkwuilg"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9522],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"ooohhhhhit'ssotrue@https://t.co/lbe68bwhxehttps://t.co/qzolvoruky"
+},
+"geometry": {
+"coordinates": 
+[115.74620999,-32.34695802],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"#yesterdaysoffice@perthconcerthallhttps://t.co/coztr5oy6h"
+},
+"geometry": {
+"coordinates": 
+[115.86376,-31.95817],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"whenyou'reatworkandyourdogandfather-in-lawarehangingout@perth,westernaustraliahttps://t.co/rj4mks6ryb"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9522],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"we're#hiring!clicktoapply:laboratoryanalyst-https://t.co/ic6muaehlj#generalscience#kwinanabeach,wa#job#jobs#careerarc"
+},
+"geometry": {
+"coordinates": 
+[115.779338,-32.238777],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"muralist#straker#graffitiart#perthgraffitiart#perth@salvationcoffeeperthhttps://t.co/ct1jibzrrs"
+},
+"geometry": {
+"coordinates": 
+[115.86288,-31.95445],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel#sunday8pm#thisweekmeetgeoffmoorfromcanning_show@foxtelhttps://t.co/rpolhwmc3a"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel#sunday8pm#thisweek@ecofaeriestalksanewlookdiaryontheshow@foxtelhttps://t.co/blkpu3e8l6"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"couchextracheckouttheseamazingkidsonourwebsitetalkinggoalball@foxtelhttps://t.co/lkeoutyo5q"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"nouheren,zegtuhetmaar.#cockburn#happytherapy@fremantle,westernaustraliahttps://t.co/nstd9iscjy"
+},
+"geometry": {
+"coordinates": 
+[115.767,-32.05],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"couchextracheckoutnowonlinemichelleandshaunaswetalkcolouredspaghetti@foxtelhttps://t.co/eeohrmtnoc"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel#sunday8pm#thisweekanothercolouredspaghettiwiththeparents@foxtelhttps://t.co/u9101bs2zb"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel#sunday8pm#thisweekneeshasethtalkstostefaniaabout@help4hd_@foxtelhttps://t.co/hbg7aitbtu"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel#sunday8pm#thisweekneeshasethtalkstostefaniaabout@help4hd_@foxtelhttps://t.co/ygw6xd9xom"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel@ajaypeniperformlivethisweek@foxtelhttps://t.co/efvjzz2pcb"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel#sunday8pm#thisweekwatchtifaniemaloniperformlive@foxtelhttps://t.co/uhmqihnpiw"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"episode633@thecouchau@auroratvfoxtel#sunday8pm#sunday8pmthebitchnteamisback@foxtelhttps://t.co/tj9cezs3q7"
+},
+"geometry": {
+"coordinates": 
+[115.74885,-31.79591],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"#4isnowtrendingin#perthhttps://t.co/iehsfvquw6https://t.co/bg9q4yl2hr"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9554],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"i'matinglewoodnightmarketshttps://t.co/00isjka8oj"
+},
+"geometry": {
+"coordinates": 
+[115.88408033,-31.92280652],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"i'matinglewoodciviccentreininglewood,wahttps://t.co/o6aw3ptaha"
+},
+"geometry": {
+"coordinates": 
+[115.8859863,-31.92104012],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"hung-griiieee(@ubentoinperth,wa)https://t.co/lhgkzmhz9x"
+},
+"geometry": {
+"coordinates": 
+[115.86119,-31.953663],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"i'matinglewoodnightmarketshttps://t.co/ajnyxe6box"
+},
+"geometry": {
+"coordinates": 
+[115.88408033,-31.92280652],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"keepgoing@perth,westernaustraliahttps://t.co/hlmcdyxxyv"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9522],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"iorderedthesoftshellcrab.thisis#badpuncountry#wa#freo@clancy'sfishpubfremantlehttps://t.co/or7gjpgcnb"
+},
+"geometry": {
+"coordinates": 
+[115.7490214,-32.050352],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"i'mathongkongbbqhouseinnorthbridge,wahttps://t.co/yrqpaaaiku"
+},
+"geometry": {
+"coordinates": 
+[115.85830746,-31.94724116],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"https://t.co/mxsmnssui3industrycommentaryseriesfeaturingmurraymchenry,aemonsullivanandjohnfink@tiny'shttps://t.co/dpzt9zpxha"
+},
+"geometry": {
+"coordinates": 
+[115.85083,-31.95216],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"don'tcountthedays.makethedayscounts.@cicerellosfremantlehttps://t.co/qoyrwxkp1t"
+},
+"geometry": {
+"coordinates": 
+[115.74309659,-32.05877004],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"deliciouslysoftthai@littlebangkokhttps://t.co/xoqaavjens"
+},
+"geometry": {
+"coordinates": 
+[115.93811,-32.01872],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"thismanandiweloveourpinkskieswelovethemsharedwithhim&amp;i@triggbeachhttps://t.co/3drqyqba3u"
+},
+"geometry": {
+"coordinates": 
+[115.7511,-31.87667],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"themoreunderstatedroopaw.#penguinandbeardownunder@perth,westernaustraliahttps://t.co/xmhqtw4uxa"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9522],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"west-coastsunsets,amirite?#penguinandbeardownunder(disclaimer:freakincold.)@perth,westernaustraliahttps://t.co/hljn82w69d"
+},
+"geometry": {
+"coordinates": 
+[115.859,-31.9522],
+"type": "Point"
+}
+},{
+"type": "Feature",
+"properties":{
+"message":"i'matperthinwesternaustraliahttps://t.co/hm2omnmjwb"
+},
+"geometry": {
+"coordinates": 
+[115.86038163,-31.95052606],
+"type": "Point"
+}
+}],
+"type": "FeatureCollection"
+}

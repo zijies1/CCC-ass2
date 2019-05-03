@@ -6,7 +6,7 @@ class Feature extends Component {
     const {name} = this.props.feature;
     return (
       <div className='map-overlay' id='features'>
-        <h2>US population density</h2>
+        <h2>Melbourne twitter density</h2>
         <div id='pd'><p>{name}</p></div>
       </div>
     );

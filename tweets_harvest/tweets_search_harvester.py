@@ -68,7 +68,6 @@ if __name__ == '__main__':
 		# dic = get_newjson(tweet)
 		try:
 			db.save(dic)
-			print(2)
 		except Exception as e:
 			print(e)
 

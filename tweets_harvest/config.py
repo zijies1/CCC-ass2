@@ -19,3 +19,35 @@ app_keys_tokens = [
 'access_token' : '1121041186305630208-85TVCtBvNc3RjW9RjmcBdwJn5FKxQm',
 'access_token_secret' : 'l3qRsugZsCt1MApDSjtCwMFS19Jms2Y2QiGpUPfzeWVit'}
 ]
+
+
+geocodes = {
+	'Sydney':"-33.865143,151.209900,35km",
+	'Melbourne':"-37.815338,144.963226,35km",
+	'Brisbane':"-27.46207,153.01462,35km",
+	'Perth':"-31.94475,115.86013,35km"
+}
+
+# city = 'Melbourne'
+# placeid = '01864a8a64df9dc4'
+# centre = [-37.815338, 144.963226]
+# geocode = "-37.815338,144.963226,35km"
+# coordinates = [144.593742, -38.433859, 145.512529, -37.511274]
+
+# city = 'Sydney'
+# placeid = '0073b76548e5984f'
+# centre = [-33.865143,151.209900]
+# geocode = "-33.865143,151.209900,35km"
+# coordinates = [150.520928, -34.118347, 151.343020, -33.578140]
+
+# city = 'Brisbane'
+# placeid = '004ec16c62325149'
+# centre = [-27.46207,153.01462]
+# geocode = "-27.46207,153.01462,35km"
+# coordinates = [152.668522, -27.767440, 153.317870, -26.996844]
+
+# city = 'Perth'
+# placeid = '0118c71c0ed41109'
+# centre = [-31.94475,115.86013]
+# geocode = "-31.94475,115.86013,35km"
+# coordinates = [115.617614, -32.675715, 116.239023, -31.624485]

@@ -43,10 +43,14 @@ def get_newjson(tweet):
 			coordinates = tweet['coordinates']['coordinates']
 
 		# is_fastfood = is_fastfood_tweet(text)
-		return ({'_id':str(tweet_id),'created_at':created_at,'text':text, 'photo':photo, 'place':place,'coordinates':coordinates})
+		return ({'_id':str(tweet_id),\
+			'created_at':created_at,\
+			'text':text,\
+			'photo':photo,\
+			'place':place,\
+			'coordinates':coordinates})
 
 	except Exception as e:
-		print('-------Error-------')
 		print(e)
 
 if __name__ == '__main__':

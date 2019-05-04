@@ -23,9 +23,9 @@ def get_sentiment(text):
 		return "negative"
 
 # function to process tweet
-def get_newjson(tweet):
+def analyse_tweet(tweet):
 	try:
-		tweet_id = tweet['id']
+		tweet_id = tweet['_id']
 		created_at = tweet['created_at']
 		text = tweet['full_text']
 
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 	for ID in db2read:
 		tweet = dict(db2read[ID])
 
-		newdic = get_newjson(tweet)
+		newdic = analyse_tweet(tweet)
 		try:
 			db2save.save(newdic)
 		except Exception as e:

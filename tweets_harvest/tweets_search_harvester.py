@@ -25,7 +25,7 @@ if __name__ == '__main__':
 	city_name = 'Melbourne'
 	## app keys and tokens
 
-	api = get_api(app_id=0)
+	api = get_api(app_id=3)
 	username = "rongxiaol"
 	password = "12345678"
 	IP = "127.0.0.1"
@@ -33,10 +33,8 @@ if __name__ == '__main__':
 	db_name = 'raw_' + city_name.lower()
 	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 	try:
-		# return couchserver.create('test')
 		db = couchserver.create(db_name)
 	except:
-		# return couchserver['test']
 		db = couchserver[db_name]
 
 	## search method ##
@@ -50,25 +48,38 @@ if __name__ == '__main__':
 	print('---------- Now collecting Tweets ----------')
 	while True:
 		try:
-			tweet = tweets.next()
+			tweet = tweets.next()._json
+			# print(tweet)
+			# print()
+			if tweet['is_quote_status'] == False:
+				# print(tweet)
+				# print()
+				new_dic = {
+				'_id':tweet['id_str'],
+				'created_at':tweet['created_at'],
+				'full_text':tweet['full_text'],
+				'entities':tweet['entities'],
+				'source':tweet['source'],
+				'user':tweet['user'],
+				'geo':tweet['geo'],
+				'coordinates':tweet['coordinates'],
+				'place':tweet['place'],
+				'retweet_count':tweet['retweet_count'],
+				'favorite_count':tweet['favorite_count'],
+				'lang':tweet['lang'],
+				}
+				# print(new_dic)
+				# print()
+				db.save(new_dic)
+
 		except tweepy.TweepError as e1:
-			# print(e1.reason)
+			print(e1.reason)
 			print('tweet limit!!!')
 			time.sleep(60 * 15)
 			continue
 		except StopIteration as e2:
-			# print("-------429-------")
 			print("Finish search!")
 			break
 		except Exception as e3:
 			print(e3)
 			continue
-		dic = tweet._json
-		dic['_id'] = str(dic['id'])
-		# dic = get_newjson(tweet)
-		try:
-			db.save(dic)
-		except Exception as e:
-			print(e)
-
-	# print('%d/%d tweets have coordinates information' % (counter,past_N))

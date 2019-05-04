@@ -1,5 +1,4 @@
 import {CHANGE_FEATURE} from '../utils/constants';
-import dataJson from '../../twitterGeometry.geojson'
 
 const options = [{
   name: 'Population',
@@ -35,7 +34,6 @@ const options = [{
 
 const INITIAL_STATE = {
   name: "Hover over a state!",
-  data: dataJson,
   active: options[0]
 };
 

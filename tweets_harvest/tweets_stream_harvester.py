@@ -31,27 +31,31 @@ class TweetListener(tweepy.StreamListener):
 			tweet = status._json
 			# print(tweet)
 			# print()
+			print(tweet)
+			if 'extended_tweet' in tweet:
+				tweet['full_text'] = tweet['extended_tweet']['full_text']
+				tweet['entities'] = tweet['extended_tweet']['entities']
+			else:
+				tweet['full_text'] = tweet['text']
 			if tweet['is_quote_status'] == False:
-				if 'extended_tweet' in tweet:
-					tweet['full_text'] = tweet['extended_tweet']['full_text']
-					tweet['entities'] = tweet['extended_tweet']['entities']
-				else:
-					tweet['full_text'] = tweet['text']
-				new_dic = {
-				'_id':tweet['id_str'],
-				'created_at':tweet['created_at'],
-				'full_text':tweet['full_text'],
-				'entities':tweet['entities'],
-				'source':tweet['source'],
-				'user':tweet['user'],
-				'geo':tweet['geo'],
-				'coordinates':tweet['coordinates'],
-				'place':tweet['place'],
-				'retweet_count':tweet['retweet_count'],
-				'favorite_count':tweet['favorite_count'],
-				'lang':tweet['lang'],
-				}
-				db.save(new_dic)
+				tweet['quoted_status'] = None
+			new_dic = {
+			'_id':tweet['id_str'],
+			'created_at':tweet['created_at'],
+			'full_text':tweet['full_text'],
+			'entities':tweet['entities'],
+			'source':tweet['source'],
+			'user':tweet['user'],
+			'geo':tweet['geo'],
+			'coordinates':tweet['coordinates'],
+			'place':tweet['place'],
+			'is_quote_status':tweet['is_quote_status'],
+			'quoted_status':tweet['quoted_status'],
+			'retweet_count':tweet['retweet_count'],
+			'favorite_count':tweet['favorite_count'],
+			'lang':tweet['lang'],
+			}
+			db.save(new_dic)
 
 		except Exception as e:
 			print(e)

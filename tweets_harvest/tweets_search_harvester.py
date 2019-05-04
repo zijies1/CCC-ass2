@@ -5,6 +5,9 @@ import time
 import config
 import sys
 
+## 15min - 2300tweets ~ 1h 1w
+## 2days - 57000tweets ~ 3h 1day
+
 def get_api(app_id=0):
 	consumer_key = config.app_keys_tokens[app_id]['consumer_key']
 	consumer_secret = config.app_keys_tokens[app_id]['consumer_secret']
@@ -52,25 +55,26 @@ if __name__ == '__main__':
 			# print(tweet)
 			# print()
 			if tweet['is_quote_status'] == False:
-				# print(tweet)
-				# print()
-				new_dic = {
-				'_id':tweet['id_str'],
-				'created_at':tweet['created_at'],
-				'full_text':tweet['full_text'],
-				'entities':tweet['entities'],
-				'source':tweet['source'],
-				'user':tweet['user'],
-				'geo':tweet['geo'],
-				'coordinates':tweet['coordinates'],
-				'place':tweet['place'],
-				'retweet_count':tweet['retweet_count'],
-				'favorite_count':tweet['favorite_count'],
-				'lang':tweet['lang'],
-				}
-				# print(new_dic)
-				# print()
-				db.save(new_dic)
+				tweet['quoted_status'] = None
+			new_dic = {
+			'_id':tweet['id_str'],
+			'created_at':tweet['created_at'],
+			'full_text':tweet['full_text'],
+			'entities':tweet['entities'],
+			'source':tweet['source'],
+			'user':tweet['user'],
+			'geo':tweet['geo'],
+			'coordinates':tweet['coordinates'],
+			'place':tweet['place'],
+			'is_quote_status':tweet['is_quote_status'],
+			'quoted_status':tweet['quoted_status'],
+			'retweet_count':tweet['retweet_count'],
+			'favorite_count':tweet['favorite_count'],
+			'lang':tweet['lang'],
+			}
+			# print(new_dic)
+			# print()
+			db.save(new_dic)
 
 		except tweepy.TweepError as e1:
 			print(e1.reason)

@@ -90,3 +90,11 @@ if __name__ == '__main__':
 			db2save.save(newdic)
 		except Exception as e:
 			print(e)
+
+
+
+		# time, location 
+		# number 
+
+
+

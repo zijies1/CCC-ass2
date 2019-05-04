@@ -11,8 +11,9 @@ def get_api(app_id=0):
 	access_token = config.app_keys_tokens[app_id]['access_token']
 	access_token_secret = config.app_keys_tokens[app_id]['access_token_secret']
 
-	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-	auth.set_access_token(access_token, access_token_secret)
+	# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+	# auth.set_access_token(access_token, access_token_secret)
+	auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
 	return tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 if __name__ == '__main__':

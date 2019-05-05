@@ -31,7 +31,6 @@ class TweetListener(tweepy.StreamListener):
 			tweet = status._json
 			# print(tweet)
 			# print()
-			print(tweet)
 			if 'extended_tweet' in tweet:
 				tweet['full_text'] = tweet['extended_tweet']['full_text']
 				tweet['entities'] = tweet['extended_tweet']['entities']

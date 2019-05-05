@@ -52,7 +52,6 @@ if __name__ == '__main__':
 	while True:
 		try:
 			tweet = tweets.next()._json
-			print(tweet)
 			new_dic = {
 			'_id':tweet['id_str'],
 			'created_at':tweet['created_at'],

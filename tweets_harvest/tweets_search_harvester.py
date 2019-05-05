@@ -13,7 +13,6 @@ def get_api(app_id=0):
 	consumer_secret = config.app_keys_tokens[app_id]['consumer_secret']
 	access_token = config.app_keys_tokens[app_id]['access_token']
 	access_token_secret = config.app_keys_tokens[app_id]['access_token_secret']
-
 	# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 	# auth.set_access_token(access_token, access_token_secret)
 	auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
@@ -44,8 +43,8 @@ if __name__ == '__main__':
 	## search method ##
 	# counter = 0
 	past_N = 10000 # count=past_N
-	sincedate = "2019-04-24"
-	untildate = "2019-04-26"
+	sincedate = "2019-04-25"
+	untildate = "2019-05-06"
 	geocode = config.geocodes[city_name]
 	tweets = tweepy.Cursor(api.search, since=sincedate, until=untildate,\
 		geocode=geocode, tweet_mode='extended').items()

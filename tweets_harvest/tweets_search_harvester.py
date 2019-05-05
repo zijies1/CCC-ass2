@@ -28,7 +28,7 @@ if __name__ == '__main__':
 	city_name = 'Melbourne'
 	## app keys and tokens
 
-	api = get_api(app_id=5)
+	api = get_api(app_id=1)
 	username = "rongxiaol"
 	password = "12345678"
 	IP = "127.0.0.1"
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 	# counter = 0
 	past_N = 10000 # count=past_N
 	sincedate = "2019-04-25"
-	untildate = "2019-05-06"
+	untildate = "2019-05-05"
 	geocode = config.geocodes[city_name]
 	tweets = tweepy.Cursor(api.search, since=sincedate, until=untildate,\
 		geocode=geocode, tweet_mode='extended').items()
@@ -66,7 +66,8 @@ if __name__ == '__main__':
 			'lang':tweet['lang'],
 			'retweet_count':tweet['retweet_count'],
 			'favorite_count':tweet['favorite_count'],
-			'is_quote_status':tweet['is_quote_status']
+			'is_quote_status':tweet['is_quote_status'],
+			'city':city_name
 			}
 			if new_dic['is_quote_status'] == True and 'quoted_status' in tweet:
 				new_dic['quoted_status'] = tweet['quoted_status']

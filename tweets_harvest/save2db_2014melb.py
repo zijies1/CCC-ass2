@@ -6,7 +6,7 @@ username = "rongxiaol"
 password = "12345678"
 IP = "127.0.0.1"
 port = "5984"
-db_name = 'raw_' + city_name.lower() + '_2014'
+db_name = 'raw_2014' + city_name.lower()
 couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 try:
 	db = couchserver.create(db_name)
@@ -36,6 +36,7 @@ with open('./2014melb.json','r',encoding='utf-8') as f:
 				'retweet_count':tweet['retweet_count'],
 				'favorite_count':tweet['favorite_count'],
 				'lang':tweet['lang'],
+				'city':city_name
 				}
 				db.save(new_dic)
 			except Exception as e:

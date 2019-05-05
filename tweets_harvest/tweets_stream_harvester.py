@@ -37,6 +37,7 @@ class TweetListener(tweepy.StreamListener):
 				tweet['entities'] = tweet['extended_tweet']['entities']
 			else:
 				tweet['full_text'] = tweet['text']
+			city_name = 'Melbourne'
 			new_dic = {
 			'_id':tweet['id_str'],
 			'created_at':tweet['created_at'],
@@ -50,7 +51,8 @@ class TweetListener(tweepy.StreamListener):
 			'lang':tweet['lang'],
 			'retweet_count':tweet['retweet_count'],
 			'favorite_count':tweet['favorite_count'],
-			'is_quote_status':tweet['is_quote_status']
+			'is_quote_status':tweet['is_quote_status'],
+			'city':city_name
 			}
 			if new_dic['is_quote_status'] == True and 'quoted_status' in tweet:
 				new_dic['quoted_status'] = tweet['quoted_status']
@@ -74,7 +76,7 @@ if __name__ == '__main__':
 	city_name = 'Melbourne'
 
 	## app keys and tokens
-	app_id=2
+	app_id=5
 	consumer_key = config.app_keys_tokens[app_id]['consumer_key']
 	consumer_secret = config.app_keys_tokens[app_id]['consumer_secret']
 	access_token = config.app_keys_tokens[app_id]['access_token']

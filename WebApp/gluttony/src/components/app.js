@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Map from './map';
-import Feature from './feature';
+// import Feature from './feature';
 import Lengend from './lengend';
 
 
@@ -9,7 +9,6 @@ class App extends Component {
     return (
       <div>
         <Map/>
-        <Feature/>
         <Lengend/>
       </div>
     );

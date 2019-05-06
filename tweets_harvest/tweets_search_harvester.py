@@ -13,7 +13,6 @@ def get_api(app_id=0):
 	consumer_secret = config.app_keys_tokens[app_id]['consumer_secret']
 	access_token = config.app_keys_tokens[app_id]['access_token']
 	access_token_secret = config.app_keys_tokens[app_id]['access_token_secret']
-
 	# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 	# auth.set_access_token(access_token, access_token_secret)
 	auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
@@ -29,7 +28,7 @@ if __name__ == '__main__':
 	city_name = 'Melbourne'
 	## app keys and tokens
 
-	api = get_api(app_id=3)
+	api = get_api(app_id=1)
 	username = "rongxiaol"
 	password = "12345678"
 	IP = "127.0.0.1"
@@ -44,8 +43,8 @@ if __name__ == '__main__':
 	## search method ##
 	# counter = 0
 	past_N = 10000 # count=past_N
-	sincedate = "2019-05-01"
-	untildate = "2019-05-02"
+	sincedate = "2019-04-25"
+	untildate = "2019-05-05"
 	geocode = config.geocodes[city_name]
 	tweets = tweepy.Cursor(api.search, since=sincedate, until=untildate,\
 		geocode=geocode, tweet_mode='extended').items()
@@ -53,10 +52,6 @@ if __name__ == '__main__':
 	while True:
 		try:
 			tweet = tweets.next()._json
-			# print(tweet)
-			# print()
-			if tweet['is_quote_status'] == False:
-				tweet['quoted_status'] = None
 			new_dic = {
 			'_id':tweet['id_str'],
 			'created_at':tweet['created_at'],
@@ -67,12 +62,16 @@ if __name__ == '__main__':
 			'geo':tweet['geo'],
 			'coordinates':tweet['coordinates'],
 			'place':tweet['place'],
-			'is_quote_status':tweet['is_quote_status'],
-			'quoted_status':tweet['quoted_status'],
+			'lang':tweet['lang'],
 			'retweet_count':tweet['retweet_count'],
 			'favorite_count':tweet['favorite_count'],
-			'lang':tweet['lang'],
+			'is_quote_status':tweet['is_quote_status'],
+			'city':city_name
 			}
+			if new_dic['is_quote_status'] == True and 'quoted_status' in tweet:
+				new_dic['quoted_status'] = tweet['quoted_status']
+			else:
+				new_dic['quoted_status'] = None
 			# print(new_dic)
 			# print()
 			db.save(new_dic)

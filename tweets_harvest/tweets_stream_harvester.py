@@ -31,14 +31,12 @@ class TweetListener(tweepy.StreamListener):
 			tweet = status._json
 			# print(tweet)
 			# print()
-			print(tweet)
 			if 'extended_tweet' in tweet:
 				tweet['full_text'] = tweet['extended_tweet']['full_text']
 				tweet['entities'] = tweet['extended_tweet']['entities']
 			else:
 				tweet['full_text'] = tweet['text']
-			if tweet['is_quote_status'] == False:
-				tweet['quoted_status'] = None
+			city_name = 'Melbourne'
 			new_dic = {
 			'_id':tweet['id_str'],
 			'created_at':tweet['created_at'],
@@ -49,12 +47,16 @@ class TweetListener(tweepy.StreamListener):
 			'geo':tweet['geo'],
 			'coordinates':tweet['coordinates'],
 			'place':tweet['place'],
-			'is_quote_status':tweet['is_quote_status'],
-			'quoted_status':tweet['quoted_status'],
+			'lang':tweet['lang'],
 			'retweet_count':tweet['retweet_count'],
 			'favorite_count':tweet['favorite_count'],
-			'lang':tweet['lang'],
+			'is_quote_status':tweet['is_quote_status'],
+			'city':city_name
 			}
+			if new_dic['is_quote_status'] == True and 'quoted_status' in tweet:
+				new_dic['quoted_status'] = tweet['quoted_status']
+			else:
+				new_dic['quoted_status'] = None
 			db.save(new_dic)
 
 		except Exception as e:
@@ -71,17 +73,20 @@ if __name__ == '__main__':
 	#   print('no parameter!')
 	#   sys.exit(0)
 	city_name = 'Melbourne'
+
 	## app keys and tokens
-	app_id=2
+	app_id=5
 	consumer_key = config.app_keys_tokens[app_id]['consumer_key']
 	consumer_secret = config.app_keys_tokens[app_id]['consumer_secret']
 	access_token = config.app_keys_tokens[app_id]['access_token']
 	access_token_secret = config.app_keys_tokens[app_id]['access_token_secret']
 
+	## get api
 	auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 	auth.set_access_token(access_token, access_token_secret)
 	api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
+	## connect to database
 	username = "rongxiaol"
 	password = "12345678"
 	IP = "127.0.0.1"
@@ -93,16 +98,14 @@ if __name__ == '__main__':
 	except:
 	    db = couchserver[db_name]
 
+	## start to listen
 	tweetlistener = TweetListener(db)
 
 	print('---------- Now collecting Tweets ----------')
 	
 	## melbourne location info ##
-	city = 'Melbourne'
 	placeid = '01864a8a64df9dc4'
-	centre = [144.963226, -37.815338]
-	geocode = "-37.815338,144.963226,35km"
-	coordinates = [144.593742, -38.433859, 145.512529, -37.511274]
+	coordinates = config.coordinates[city_name]
 
 	## stream method ##
 	stream = tweepy.Stream(auth, tweetlistener,tweet_mode='extended')

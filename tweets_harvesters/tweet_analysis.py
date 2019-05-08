@@ -6,17 +6,20 @@ import sys
 import keywords
 from profanity_check import predict, predict_prob
 
-def is_fastfood(text):
-	lower_text = text.lower()
-	for keyword in keywords.fastfood:
-		if keyword in lower_text:
-			return True
-	return False
+# def is_fastfood(text):
+# 	lower_text = text.lower()
+# 	for keyword in keywords.fastfood:
+# 		if keyword in lower_text:
+# 			return True
+# 	return False
 
 def is_wrath(text):
 	pred = predict([text])
 	prob = predict_prob([text])
-	return pred[0] == 1
+	if pred[0] == 1:
+		return 1
+	else:
+		return 0
 
 def get_period(created_at):
 	datetime = created_at.split()
@@ -66,13 +69,18 @@ if __name__ == '__main__':
 	except:
 		db2save = couchserver[db_pro]
 
+	num=0
 	# process raw tweets and save them to new database
 	for ID in db2read:
 		try:
 			tweet = dict(db2read[ID])
-			is_wrath = is_wrath(tweet['full_text'])
+			iswrath = is_wrath(tweet['full_text'])
 			sentiment = get_sentiment(tweet['full_text'])
 			time_period = get_period(tweet['created_at'])
+			if iswrath == 1:
+				num+=1
+				print(num)
+			# print(iswrath,sentiment,time_period)
 			newdic = {
 				'_id':tweet['_id'],
 				'full_text':tweet['full_text'],
@@ -85,10 +93,10 @@ if __name__ == '__main__':
 				'day':time_period[2],
 				'hour':time_period[3],
 				'year':time_period[4],
-				'is_wrath':is_wrath,
+				'is_wrath':iswrath,
 				'sentiment':sentiment
 			}
-		
+			# print(newdic)
 			db2save.save(newdic)
 		except Exception as e:
 			print(e)

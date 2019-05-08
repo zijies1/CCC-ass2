@@ -4,13 +4,32 @@ import config
 from textblob import TextBlob
 import sys
 import keywords
+from profanity_check import predict, predict_prob
 
-def is_fastfood_tweet(text):
-	lower_text = text.lower()
-	for keyword in keywords.fastfood:
-		if keyword in lower_text:
-			return True
-	return False
+# def is_fastfood(text):
+# 	lower_text = text.lower()
+# 	for keyword in keywords.fastfood:
+# 		if keyword in lower_text:
+# 			return True
+# 	return False
+
+def is_wrath(text):
+	pred = predict([text])
+	prob = predict_prob([text])
+	if pred[0] == 1:
+		return 1
+	else:
+		return 0
+
+def get_period(created_at):
+	datetime = created_at.split()
+	weekday = datetime[0]
+	month = datetime[1]
+	day = datetime[2]
+	time = datetime[3]
+	year = datetime[5]
+	hour = time.split(":")[0]
+	return [weekday,month,day,hour,year]
 
 def get_sentiment(text):
 	sentiment = TextBlob(text)
@@ -21,37 +40,6 @@ def get_sentiment(text):
 		return "neutral"
 	else:
 		return "negative"
-
-# function to process tweet
-def analyse_tweet(tweet):
-	try:
-		tweet_id = tweet['_id']
-		created_at = tweet['created_at']
-		text = tweet['full_text']
-
-		## get photo url if there is one
-		photo = None
-		if 'media' in tweet['entities']:
-			for media in tweet['entities']['media']:
-				if media['type'] == 'photo':
-					photo = media['media_url']
-		place = None
-		coordinates = None
-		if tweet['coordinates']:
-			# counter += 1
-			place = tweet['place']['name']
-			coordinates = tweet['coordinates']['coordinates']
-
-		# is_fastfood = is_fastfood_tweet(text)
-		return ({'_id':str(tweet_id),\
-			'created_at':created_at,\
-			'text':text,\
-			'photo':photo,\
-			'place':place,\
-			'coordinates':coordinates})
-
-	except Exception as e:
-		print(e)
 
 if __name__ == '__main__':
 	# if len(sys.argv) >= 2:
@@ -83,18 +71,28 @@ if __name__ == '__main__':
 
 	# process raw tweets and save them to new database
 	for ID in db2read:
-		tweet = dict(db2read[ID])
-
-		newdic = analyse_tweet(tweet)
 		try:
+			tweet = dict(db2read[ID])
+			iswrath = is_wrath(tweet['full_text'])
+			sentiment = get_sentiment(tweet['full_text'])
+			time_period = get_period(tweet['created_at'])
+			
+			newdic = {
+				'_id':tweet['_id'],
+				'full_text':tweet['full_text'],
+				'geo':tweet['geo'],
+				'coordinates':tweet['coordinates'],
+				'retweet_count':tweet['retweet_count'],
+				'favorite_count':tweet['favorite_count'],
+				'weekday':time_period[0],
+				'month':time_period[1],
+				'day':time_period[2],
+				'hour':time_period[3],
+				'year':time_period[4],
+				'is_wrath':iswrath,
+				'sentiment':sentiment
+			}
+			# print(newdic)
 			db2save.save(newdic)
 		except Exception as e:
 			print(e)
-
-
-
-		# time, location 
-		# number 
-
-
-

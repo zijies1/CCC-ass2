@@ -9,14 +9,22 @@ from profanity_check import predict, predict_prob
 # def get_foods(text):
 # 	
 
-def is_wrath(text):
-	pred = predict([text])
+def get_wrath_score(text):
+	# pred = predict([text])
 	prob = predict_prob([text])
-	if pred[0] == 1:
-		return 1
-	else:
-		return 0
+	return prob[0]
 
+def get_senti_score(text):
+	sentiment = TextBlob(text)
+	senti_score = sentiment.sentiment.polarity
+	return senti_score
+	# if senti_score > 0:
+	# 	return "positive"
+	# elif senti_score == 0:
+	# 	return "neutral"
+	# else:
+	# 	return "negative"
+	
 def get_period(created_at):
 	datetime = created_at.split()
 	weekday = datetime[0]
@@ -27,15 +35,6 @@ def get_period(created_at):
 	hour = time.split(":")[0]
 	return [weekday,month,day,hour,year]
 
-def get_sentiment(text):
-	sentiment = TextBlob(text)
-	senti_score = sentiment.sentiment.polarity
-	if senti_score > 0:
-		return "positive"
-	elif senti_score == 0:
-		return "neutral"
-	else:
-		return "negative"
 
 if __name__ == '__main__':
 	# if len(sys.argv) >= 2:
@@ -69,8 +68,8 @@ if __name__ == '__main__':
 	for ID in db2read:
 		try:
 			tweet = dict(db2read[ID])
-			iswrath = is_wrath(tweet['full_text'])
-			sentiment = get_sentiment(tweet['full_text'])
+			wrath_score = get_wrath_score(tweet['full_text'])
+			senti_score = get_senti_score(tweet['full_text'])
 			time_period = get_period(tweet['created_at'])
 			
 			newdic = {
@@ -86,8 +85,8 @@ if __name__ == '__main__':
 				'day':time_period[2],
 				'hour':time_period[3],
 				'year':time_period[4],
-				'is_wrath':iswrath,
-				'sentiment':sentiment,
+				'wrath_score':wrath_score,
+				'senti_score':senti_score,
 				# 'foods':
 			}
 			# print(newdic)

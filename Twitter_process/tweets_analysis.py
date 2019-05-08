@@ -6,7 +6,7 @@ import sys
 import keywords
 from profanity_check import predict, predict_prob
 
-# def is_fastfood(text):
+# def get_foods(text):
 # 	
 
 def is_wrath(text):
@@ -76,6 +76,7 @@ if __name__ == '__main__':
 			newdic = {
 				'_id':tweet['_id'],
 				'full_text':tweet['full_text'],
+				'user':tweet['user'],
 				'geo':tweet['geo'],
 				'coordinates':tweet['coordinates'],
 				'retweet_count':tweet['retweet_count'],
@@ -87,7 +88,7 @@ if __name__ == '__main__':
 				'year':time_period[4],
 				'is_wrath':iswrath,
 				'sentiment':sentiment,
-				# 'is_fastfood':
+				# 'foods':
 			}
 			# print(newdic)
 			db2save.save(newdic)

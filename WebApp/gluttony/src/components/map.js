@@ -155,6 +155,12 @@ class Map extends Component {
           }
           hoveredMelId = e.features[0].id;
           this.map.setFeatureState({source: 'melJson', id: hoveredMelId}, { hover: true});
+        }
+      });
+
+      this.map.on("mousemove", "vicJson-fills", (e)=> {
+        if (e.features.length > 0) {
+          this.props.changeFeature(e.features[0].properties.name + ":" + e.features[0].properties.density);
           if (hoveredVicId) {
             this.map.setFeatureState({source: 'vicJson', id: hoveredVicId}, { hover: false});
           }

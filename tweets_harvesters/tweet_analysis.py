@@ -4,13 +4,19 @@ import config
 from textblob import TextBlob
 import sys
 import keywords
+from profanity_check import predict, predict_prob
 
-def is_fastfood_tweet(text):
+def is_fastfood(text):
 	lower_text = text.lower()
 	for keyword in keywords.fastfood:
 		if keyword in lower_text:
 			return True
 	return False
+
+def is_envy(text):
+	pred = predict([text])
+	prob = predict_prob([text])
+	return pred[0] == 1
 
 def get_sentiment(text):
 	sentiment = TextBlob(text)

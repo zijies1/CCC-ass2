@@ -69,7 +69,7 @@ if __name__ == '__main__':
 	except:
 		db2save = couchserver[db_pro]
 
-	num=0
+	# num=0
 	# process raw tweets and save them to new database
 	for ID in db2read:
 		try:
@@ -77,9 +77,9 @@ if __name__ == '__main__':
 			iswrath = is_wrath(tweet['full_text'])
 			sentiment = get_sentiment(tweet['full_text'])
 			time_period = get_period(tweet['created_at'])
-			if iswrath == 1:
-				num+=1
-				print(num)
+			# if iswrath == 1:
+			# 	num+=1
+			# 	print(num)
 			# print(iswrath,sentiment,time_period)
 			newdic = {
 				'_id':tweet['_id'],

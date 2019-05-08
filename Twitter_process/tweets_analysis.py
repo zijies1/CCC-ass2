@@ -7,11 +7,7 @@ import keywords
 from profanity_check import predict, predict_prob
 
 # def is_fastfood(text):
-# 	lower_text = text.lower()
-# 	for keyword in keywords.fastfood:
-# 		if keyword in lower_text:
-# 			return True
-# 	return False
+# 	
 
 def is_wrath(text):
 	pred = predict([text])
@@ -90,7 +86,8 @@ if __name__ == '__main__':
 				'hour':time_period[3],
 				'year':time_period[4],
 				'is_wrath':iswrath,
-				'sentiment':sentiment
+				'sentiment':sentiment,
+				# 'is_fastfood':
 			}
 			# print(newdic)
 			db2save.save(newdic)

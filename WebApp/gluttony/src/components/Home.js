@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 import About from './About';
 import Footer from './Footer';
 import Experts from './Experts';
+import homeBg from "../img/home-bg.jpg";
+
 // Home page component
 class Home extends React.Component {
   // render
   render() {
 
-    var backgroundImage = "https://truebarbecue.com/wp-content/uploads/2018/09/Reds-True-BBQ-Sept-2018-35969-WEB-RES-2.jpg";
+    // var backgroundImage = "https://truebarbecue.com/wp-content/uploads/2018/09/Reds-True-BBQ-Sept-2018-35969-WEB-RES-2.jpg";
     return (
       <div>
-        <header id="home-section" style = {{ "backgroundImage": `url(${backgroundImage})`}}>
+        <header id="home-section" style = {{ "backgroundImage": `url(${homeBg})`}}>
             <div className="dark-overlay">
               <div className="home-inner container">
                 <div className="jumbotron text-white bg-transparent text-center">

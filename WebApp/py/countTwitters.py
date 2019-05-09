@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import os
 from shapely.geometry import Point
@@ -5,7 +6,7 @@ from shapely.geometry.polygon import Polygon
 from random import randint
 
 
-twitter_file = '../tinyTwitter.json'
+twitter_file = '../twitter2014.json'
 source_melbourne = '../TheGreaterMelbourne.geojson'
 source_vic = '../vic.json'
 
@@ -34,7 +35,7 @@ def initialize_dic(geometry_dic):
 
 def getGeometry(geometry,id):
     geometry_dic = {}
-    fh = open(geometry, 'r')
+    fh = open(geometry, 'r', encoding="utf8")
     try:
         json_data = json.loads(fh.read())
         list = json_data["features"]
@@ -64,7 +65,7 @@ def counts_to_geoJsonObject(cityName,geolocs,id,size):
 
 def count_tweets(geometry,tw_file,id,geometry_dic):
     count_dic = initialize_dic(geometry_dic)
-    fh = open(tw_file, 'r')
+    fh = open(tw_file, 'r', encoding="utf8")
     count = 0
     for line in fh:
         try:
@@ -81,7 +82,7 @@ def count_tweets(geometry,tw_file,id,geometry_dic):
     return count_dic
 
 def write_to_file(filename,count_dic,geometry_dic):
-    fw = open(filename, 'w+')
+    fw = open(filename, 'w+', encoding="utf8")
     fw.write("{\"type\": \"FeatureCollection\",\n\"features\":[")
 
     count = 1

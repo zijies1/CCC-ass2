@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import os
 from countTwitters import *
@@ -28,8 +29,8 @@ def twitter_to_geoJsonObject(msg,geoloc):
 
 
 def main():
-    fh = open(twitter_file, 'r')
-    fw = open(twitter_geoJson_file, 'w+')
+    fh = open(twitter_file,'r', encoding="utf8")
+    fw = open(twitter_geoJson_file,'w+',encoding="utf8")
     line = fh.readline()
     cnt = 1
     fw.write("{\n\"features\":\n [\n")
@@ -58,8 +59,8 @@ def main2():
     mel_dic = getGeometry(source_melbourne,"name")
     count_mel_dic = initialize_dic(mel_dic)
     count_vic_dic = initialize_dic(vic_dic)
-    fh = open(twitter_file, 'r')
-    fw = open(twitter_geoJson_file, 'w+')
+    fh = open(twitter_file,'r',encoding="utf8")
+    fw = open(twitter_geoJson_file,'w+', encoding="utf8")
     cnt = 0
     fw.write("{\n\"features\":\n [\n")
 
@@ -75,6 +76,7 @@ def main2():
             twitterArea(coord,vic_dic,count_vic_dic)
 
         except Exception as err:
+            # pass
             print('Error: ', err)
 
     # remove the last comma of the file

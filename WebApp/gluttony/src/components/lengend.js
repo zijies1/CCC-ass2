@@ -33,7 +33,7 @@ class Lengend extends Component {
   }
   render() {
     return (
-      <div className='map-overlay' id='legend'>
+      <div className='map-overlay text-dark' id='legend'>
         {this.renderLengends}
       </div>
     );

@@ -45,9 +45,9 @@ p {
 }
 
 #features {
-  top: 0;
+  bottom: 0;
   height: 100px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   width: 250px;
 }
 
@@ -57,7 +57,7 @@ p {
   line-height: 18px;
   height: 160px;
   margin-bottom: 40px;
-  width: 120px;
+  width: 140px;
 }
 
 .legend-key {

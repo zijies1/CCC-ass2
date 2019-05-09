@@ -59,12 +59,12 @@ hr{
   border-radius: 5px;
 }
 
-#authors img {
+#team img {
   margin-top: -50px; }
-#authors .card:hover {
+#team .card:hover {
   background: #5abced;
   color: #fff; }
-#authors .fab {
+#team .fab {
   color: #fff; }
 
 @media (max-width: 768px) {

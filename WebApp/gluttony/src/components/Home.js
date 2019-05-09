@@ -3,6 +3,7 @@ import style from "./style.css";
 import { connect } from 'react-redux';
 import About from './About';
 import Footer from './Footer';
+import Experts from './Experts';
 // Home page component
 class Home extends React.Component {
   // render
@@ -27,8 +28,8 @@ class Home extends React.Component {
             </div>
           </header>
           <About/>
+          <Experts/>
           <Footer/>
-
         </div>
     );
   }

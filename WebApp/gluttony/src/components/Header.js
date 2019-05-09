@@ -16,15 +16,19 @@ class Header extends React.Component {
               <li className="nav-item">
                 <a href="/" className="nav-link">Home</a>
               </li>
+              <li className="nav-item">
+                <a href="#about" className="nav-link">About</a>
+              </li>
+              <li className="nav-item">
+                <a href="#team" className="nav-link">Team</a>
+              </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Username
+                  Maps
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="/profile">Account</a>
-                  <a className="dropdown-item" href="/appointment">Make An Appointment</a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="/">Logout</a>
+                  <a className="dropdown-item" href="/profile">Melbourne</a>
+                  <a className="dropdown-item" href="/appointment">Sydney</a>
                 </div>
               </li>
             </ul>

@@ -10,7 +10,7 @@ export default class ABOUT extends React.Component {
             <div className="col">
               <div className="info-header mb-5">
                 <h1 className="text-primary pb-3">
-                  Why Choose Us?
+                  About the project
                 </h1>
                 <p className="lead pb-3 text-secondary">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus obcaecati alias rerum dolore fugiat debitis?

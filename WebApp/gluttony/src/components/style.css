@@ -8,6 +8,10 @@ body {
   opacity: 1;
 }
 
+.nav a {
+	-webkit-transition: all 1s ease;
+}
+
 hr{
   height: 1px;
   color: white;

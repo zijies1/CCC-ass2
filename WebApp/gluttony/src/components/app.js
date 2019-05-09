@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapContainer from './MapContainer';
 import Home from './Home';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
 class App extends Component {
   render() {

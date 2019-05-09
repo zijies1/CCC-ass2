@@ -1,16 +1,15 @@
 import React from "react";
-import Map from './Map';
-import Lengend from './Lengend';
-import Feature from './Feature';
-
+import Map from "./Map";
+import Lengend from "./Lengend";
+import Feature from "./Feature";
 class MapContainer extends React.Component {
 
   render() {
     return (
-      <div>
-         <Feature/>
+      <div class="wrapper">
          <Map/>
          <Lengend/>
+         <Feature/>
       </div>
     )
   };

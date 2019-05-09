@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import mapboxgl from 'mapbox-gl';
-import {changeFeature} from './actions';
-mapboxgl.accessToken = 'pk.eyJ1IjoiemlqaWVzMSIsImEiOiJjanV3aTcwNjMwY3BtNDRxdDhsYTRnbTBmIn0.Uo9vbFX1xIGYsDhLxEu9hQ';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import mapboxgl from "mapbox-gl";
+import {changeFeature} from "./actions";
+mapboxgl.accessToken = "pk.eyJ1IjoiemlqaWVzMSIsImEiOiJjanV3aTcwNjMwY3BtNDRxdDhsYTRnbTBmIn0.Uo9vbFX1xIGYsDhLxEu9hQ";
 
 class Map extends Component {
   map;
@@ -15,13 +15,13 @@ class Map extends Component {
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: "mapbox://styles/mapbox/streets-v11",
       center: [145.214,-37.829],
       zoom: 8
     });
     this.map.addControl(new mapboxgl.NavigationControl());
 
-    this.map.on('load', () =>  {
+    this.map.on("load", () =>  {
       this.map.addSource("melJson", {
         "type": "geojson",
         "data": melJson
@@ -42,7 +42,7 @@ class Map extends Component {
           "id": "melJson-fills",
           "type": "fill",
           "source": "melJson",
-          'maxzoom': 11,
+          "maxzoom": 11,
           "layout": {},
           "paint": {
           "fill-color": ["step",["get","density"],"#ffeda0",100,"#ffeda0",200,"#fed976",500,"#feb24c",1000,"#fd8d3c",2000,"#fc4e2a",5000,"#e31a1c",10000,"#bd0026"],
@@ -58,7 +58,7 @@ class Map extends Component {
         "id": "melJson-borders",
         "type": "line",
         "source": "melJson",
-        'maxzoom': 11,
+        "maxzoom": 11,
         "layout": {},
         "paint": {
         "line-color": "#627BC1",
@@ -70,7 +70,7 @@ class Map extends Component {
           "id": "vicJson-fills",
           "type": "fill",
           "source": "vicJson",
-          'minzoom': 11,
+          "minzoom": 11,
           "layout": {},
           "paint": {
             "fill-color": ["step",["get","density"],"#ffeda0",100,"#ffeda0",200,"#fed976",500,"#feb24c",1000,"#fd8d3c",2000,"#fc4e2a",5000,"#e31a1c",10000,"#bd0026"],
@@ -86,7 +86,7 @@ class Map extends Component {
         "id": "vicJson-borders",
         "type": "line",
         "source": "vicJson",
-        'minzoom': 11,
+        "minzoom": 11,
         "layout": {},
         "paint": {
         "line-color": "#627BC1",
@@ -151,10 +151,10 @@ class Map extends Component {
         if (e.features.length > 0) {
           this.props.changeFeature(e.features[0].properties.name + ":" + e.features[0].properties.density);
           if (hoveredMelId) {
-          this.map.setFeatureState({source: 'melJson', id: hoveredMelId}, { hover: false});
+          this.map.setFeatureState({source: "melJson", id: hoveredMelId}, { hover: false});
           }
           hoveredMelId = e.features[0].id;
-          this.map.setFeatureState({source: 'melJson', id: hoveredMelId}, { hover: true});
+          this.map.setFeatureState({source: "melJson", id: hoveredMelId}, { hover: true});
         }
       });
 
@@ -162,31 +162,31 @@ class Map extends Component {
         if (e.features.length > 0) {
           this.props.changeFeature(e.features[0].properties.name + ":" + e.features[0].properties.density);
           if (hoveredVicId) {
-            this.map.setFeatureState({source: 'vicJson', id: hoveredVicId}, { hover: false});
+            this.map.setFeatureState({source: "vicJson", id: hoveredVicId}, { hover: false});
           }
           hoveredVicId = e.features[0].id;
-          this.map.setFeatureState({source: 'vicJson', id: hoveredVicId}, { hover: true});
+          this.map.setFeatureState({source: "vicJson", id: hoveredVicId}, { hover: true});
         }
       });
 
       // When the mouse leaves the state-fill layer, update the feature state of the
       // previously hovered feature.
-      this.map.on("mouseleave", "vicJson-fills", "melJson-fills",'clusters', ()=> {
-        this.map.getCanvas().style.cursor = '';
+      this.map.on("mouseleave", "vicJson-fills", "melJson-fills","clusters", ()=> {
+        this.map.getCanvas().style.cursor = "";
         // if (hoveredVicId) {
-        //   this.map.setFeatureState({source: 'vicJson', id: hoveredVicId}, { hover: false});
+        //   this.map.setFeatureState({source: "vicJson", id: hoveredVicId}, { hover: false});
         // }
         if (hoveredMelId) {
-          this.map.setFeatureState({source: 'melJson', id: hoveredMelId}, { hover: false});
+          this.map.setFeatureState({source: "melJson", id: hoveredMelId}, { hover: false});
         }
         hoveredMelId =  null;
         // hoveredVicId =  null;
       });
 
-      this.map.on('click', 'clusters', (e) => {
-        var features = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+      this.map.on("click", "clusters", (e) => {
+        var features = this.map.queryRenderedFeatures(e.point, { layers: ["clusters"] });
         var clusterId = features[0].properties.cluster_id;
-        this.map.getSource('twrJson').getClusterExpansionZoom(clusterId, (err, zoom)=> {
+        this.map.getSource("twrJson").getClusterExpansionZoom(clusterId, (err, zoom)=> {
           if (err){return;}
           this.map.easeTo({
             center: features[0].geometry.coordinates,
@@ -195,7 +195,7 @@ class Map extends Component {
         });
       });
 
-      this.map.on('click', 'unclustered-point', (e) => {
+      this.map.on("click", "unclustered-point", (e) => {
         console.log(e.features);
         if(e.features.length > 0){
           var coordinates = e.features[0].geometry.coordinates.slice();
@@ -215,8 +215,8 @@ class Map extends Component {
         }
       });
 
-      this.map.on('mouseenter', 'clusters', () => {
-        this.map.getCanvas().style.cursor = 'pointer';
+      this.map.on("mouseenter", "clusters", () => {
+        this.map.getCanvas().style.cursor = "pointer";
       });
     });
   }

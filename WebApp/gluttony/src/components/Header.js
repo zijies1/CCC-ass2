@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 class Header extends React.Component {
 
@@ -27,8 +28,9 @@ class Header extends React.Component {
                   Maps
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="/profile">Melbourne</a>
-                  <a className="dropdown-item" href="/appointment">Sydney</a>
+
+                  <a className="dropdown-item"><Link to="/map">Melbourne</Link></a>
+                  <a className="dropdown-item"><Link to="/map">Sydney</Link></a>
                 </div>
               </li>
             </ul>

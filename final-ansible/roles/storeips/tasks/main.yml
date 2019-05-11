@@ -6,33 +6,49 @@
 - name: create and write to the host file
   lineinfile:
     path: "{{inventory_file}}"
-    line: "{{servers_name}}"
+    line: '[all]'
     create: yes
 
-- name: write dbservers
+- name: write servers
   lineinfile:
     path: "{{inventory_file}}"
     line: "{{item}} {{ssh_info}}"
   loop: "{{host_ips}}"
 
-- name: write swarm init server
+- name: write web servers
   lineinfile:
     path: "{{inventory_file}}"
-    line: "{{swarm_init_server}}\n{{host_ips[0]}} {{ssh_info}}"
+    line: "\n[webservers]\n{{host_ips[0]}}"
+
+- name: form dbservers
+  set_fact:
+    dbservers: "{{ dbservers|default('\n[dbservers]\n') + item + '\n'}}"
+  loop: "{{host_ips}}"
+  when: item != host_ips[0] 
+- name: show dbservers
+  debug:
+    msg: "{{dbservers}}"
+
+- name: write dbservers
+  lineinfile:
+    path: "{{inventory_file}}"
+    line: "{{dbservers}}"
+
+- name: write swarm init db server
+  lineinfile:
+    path: "{{inventory_file}}"
+    line: "\n[swarminit]\n{{host_ips[1]}}"
 
 - name: set swarm workers
   set_fact:
-    swarm_workers: "{{swarm_workers|default() + item + ' ' + ssh_info + '\n'}}"
-  when: item != host_ips[0]
+    swarm_workers: "{{swarm_workers|default() + item + '\n'}}"
+  when: item != host_ips[0] and item != host_ips[1]
   loop: "{{host_ips}}"
 
-- name: show swarm workers
-  debug:
-    msg: "{{swarm_workers}}"
 
 - name: write swarm join server
   lineinfile:
     path: "{{inventory_file}}"
-    line: "{{swarm_join_server}}\n{{swarm_workers}}"
+    line: "\n[swarmjoin]\n{{swarm_workers}}"
 
   

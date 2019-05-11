@@ -1,4 +1,4 @@
-- hosts: dbservers
+- hosts: all
   vars_files:
     - vars/host_vars.yml
   gather_facts: true

@@ -5,9 +5,6 @@ ssh_info: "ansible_ssh_private_key_file=~/.ssh/xudongm.pem ansible_user=ubuntu a
 instance_image: afccf48a-9426-4618-86dc-0ceb636f0169
 private_key: xudongm
 instance_flavor: uom.mse.2c9g
-servers_name: "[dbservers]"
-swarm_init_server: "[swarminit]"
-swarm_join_server: "[swarmjoin]"
 
 volumes:
   - vol_name: mytest1-vol-1

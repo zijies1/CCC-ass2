@@ -1,4 +1,4 @@
-- hosts: dbservers
+- hosts: all
   gather_facts: true
   vars:
     my_packages:

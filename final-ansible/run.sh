@@ -6,4 +6,4 @@
 #ansible-playbook -i ./inventory/hosts.ini docker.yml
 #ansible-playbook -i ./inventory/hosts.ini swarm.yml
 #. ./openrc.sh; ansible-playbook -i ./inventory/hosts.ini add_key.yml
-#ansible-playbook -i ./inventory/hosts.ini install_tools.yml
+ansible-playbook -i ./inventory/hosts.ini install_tools.yml

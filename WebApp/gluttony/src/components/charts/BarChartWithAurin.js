@@ -38,7 +38,6 @@ export default class Chart extends React.Component {
 };
     return (
       <div>
-        <h2 className="text-dark">Bar chart</h2>
         <Bar data={data} />
       </div>
     );

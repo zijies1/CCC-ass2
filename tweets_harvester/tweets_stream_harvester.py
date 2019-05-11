@@ -16,8 +16,9 @@ class TweetListener(tweepy.StreamListener):
 	def on_status(self, status):
 		try:
 			tweet = status._json
-			# print(tweet)
-			# print()
+			if tweet['geo']:
+				print(tweet)
+				print()
 			if 'extended_tweet' in tweet:
 				tweet['full_text'] = tweet['extended_tweet']['full_text']
 				tweet['entities'] = tweet['extended_tweet']['entities']

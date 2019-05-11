@@ -4,9 +4,9 @@ import couchdb
 import time
 import config
 import sys
+import tweets_analysis
 
-## 15min - 2300tweets ~ 1h 1w
-## 2days - 57000tweets ~ 3h 1day
+start = time.time()
 
 def get_api(app_id):
 	consumer_key = config.app_keys_tokens[app_id]['consumer_key']
@@ -17,26 +17,24 @@ def get_api(app_id):
 	return tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 if __name__ == '__main__':
-	city_name = 'Melbourne'
-	geocode = config.geocodes[city_name]
-	username = "rongxiaol"
-	password = "12345678"
-	IP = "localhost"
+	username = "admin"
+	password = "123456"
+	IP = "172.26.38.0"
 	port = "5984"
-	sincedate = "2019-04-25"
-	untildate = "2019-05-05"
+	sincedate = "2019-05-04"
+	untildate = "2019-05-11"
 
-	# if len(sys.argv) >= 2:
-	# 	city_name = sys.argv[1]
-	# 	geocode = config.geocodes[city_name]
-	# else:
-	# 	print('no parameter!')
-	# 	sys.exit(0)
+	if len(sys.argv) >= 2:
+		city_name = sys.argv[1]
+		geocode = config.geocodes[city_name]
+	else:
+		print('no parameter!')
+		sys.exit(0)
 
 	app_id = config.search_appid[city_name]
 	api = get_api(app_id=app_id)
 
-	db_name = 'raw_' + city_name.lower()
+	db_name = city_name.lower()+'2'
 	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 	try:
 		db = couchserver.create(db_name)
@@ -50,6 +48,13 @@ if __name__ == '__main__':
 	while True:
 		try:
 			tweet = tweets.next()._json
+			time_period = tweets_analysis.get_period(tweet['created_at'])
+			food_list = tweets_analysis.get_foods(tweet['full_text'])
+			if tweet['is_quote_status'] == True and 'quoted_status' in tweet:
+				quoted_status = tweet['quoted_status']
+			else:
+				quoted_status = None
+
 			new_dic = {
 			'_id':tweet['id_str'],
 			'created_at':tweet['created_at'],
@@ -64,14 +69,15 @@ if __name__ == '__main__':
 			'retweet_count':tweet['retweet_count'],
 			'favorite_count':tweet['favorite_count'],
 			'is_quote_status':tweet['is_quote_status'],
-			'city':city_name
+			'quoted_status':quoted_status,
+			'city':city_name,
+			'weekday':time_period[0],
+			'month':time_period[1],
+			'day':time_period[2],
+			'hour':time_period[3],
+			'year':time_period[4],
+			'foods': food_list
 			}
-			if new_dic['is_quote_status'] == True and 'quoted_status' in tweet:
-				new_dic['quoted_status'] = tweet['quoted_status']
-			else:
-				new_dic['quoted_status'] = None
-			# print(new_dic)
-			# print()
 			db.save(new_dic)
 
 		except tweepy.TweepError as e1:
@@ -85,3 +91,4 @@ if __name__ == '__main__':
 		except Exception as e3:
 			print(e3)
 			continue
+	print('time used: ', time.time()-start)

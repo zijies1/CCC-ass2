@@ -19,7 +19,7 @@ if __name__ == '__main__':
 		print('no enough parameters!')
 		sys.exit(0)
 
-	db_name = city_name.lower() +'1'
+	db_name = city_name.lower()
 	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 	try:
 		db = couchserver.create(db_name)

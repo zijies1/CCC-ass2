@@ -34,7 +34,7 @@ if __name__ == '__main__':
 	app_id = config.search_appid[city_name]
 	api = get_api(app_id=app_id)
 
-	db_name = city_name.lower()+'2'
+	db_name = city_name.lower()
 	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 	try:
 		db = couchserver.create(db_name)

@@ -1,39 +1,45 @@
 import React from "react";
-import {Line} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 
 export default class Chart extends React.Component {
   // render
   render() {
     var data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: 'rgba(75,192,192,0.4)',
-      borderColor: 'rgba(75,192,192,1)',
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: 'rgba(75,192,192,1)',
-      pointBackgroundColor: '#fff',
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
-    }
-  ]
+      labels: ['Melbourne','Sydney','Brisbane','Perth'],
+      datasets: [
+        {
+          label: '2015',
+          backgroundColor: 'rgba(255,99,132,0.5)',
+          borderColor: 'rgba(255,99,132,1)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgba(255,99,132,0.8)',
+          hoverBorderColor: 'rgba(255,99,132,1)',
+          data: [65, 59, 80, 81]
+        },
+        {
+          label: '2016',
+          backgroundColor: 'rgb(66,134,244,0.5)',
+          borderColor: 'rgb(66,134,244,1)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgb(66,134,244,0.8)',
+          hoverBorderColor: 'rgb(66,134,244,1)',
+          data: [45, 39, 54, 57]
+        },
+        {
+          label: '2017',
+          backgroundColor: 'rgb(237,184,28,0.5)',
+          borderColor: 'rgb(237,184,28,1)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgb(237,184,28,0.8)',
+          hoverBorderColor: 'rgb(237,184,28,1)',
+          data: [39, 21, 93,87]
+        }
+      ]
 };
     return (
       <div>
-        <h2>Line Example</h2>
-        <Line data={data} />
+        <h2 className="text-dark">Bar chart</h2>
+        <Bar data={data} />
       </div>
     );
   }

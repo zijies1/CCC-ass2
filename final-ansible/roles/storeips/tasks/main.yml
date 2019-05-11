@@ -1,0 +1,38 @@
+- name: remove invertory_file
+  file:
+    path: "{{inventory_file}}"
+    state: absent
+
+- name: create and write to the host file
+  lineinfile:
+    path: "{{inventory_file}}"
+    line: "{{servers_name}}"
+    create: yes
+
+- name: write dbservers
+  lineinfile:
+    path: "{{inventory_file}}"
+    line: "{{item}} {{ssh_info}}"
+  loop: "{{host_ips}}"
+
+- name: write swarm init server
+  lineinfile:
+    path: "{{inventory_file}}"
+    line: "{{swarm_init_server}}\n{{host_ips[0]}} {{ssh_info}}"
+
+- name: set swarm workers
+  set_fact:
+    swarm_workers: "{{swarm_workers|default() + item + ' ' + ssh_info + '\n'}}"
+  when: item != host_ips[0]
+  loop: "{{host_ips}}"
+
+- name: show swarm workers
+  debug:
+    msg: "{{swarm_workers}}"
+
+- name: write swarm join server
+  lineinfile:
+    path: "{{inventory_file}}"
+    line: "{{swarm_join_server}}\n{{swarm_workers}}"
+
+  

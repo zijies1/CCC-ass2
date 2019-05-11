@@ -1,0 +1,38 @@
+- name: Gather facts of remote host
+  setup:
+    gather_subset: all
+
+- name: get environment arguments
+  shell: cat /etc/environment
+  register: env_args
+
+- name: set proxy
+  tags: always
+  become: yes
+  lineinfile:
+    path: /etc/environment
+    line: "{{ proxy }}"
+    create: yes
+  when: env_args.stdout.find('proxy') == -1
+
+- name: add publice keys
+  lineinfile:
+    path: ~/.ssh/authorized_keys
+    line: "{{item}}"
+  loop: "{{public_keys}}"
+
+- name: Install some tools
+  tags: always
+  become: yes
+  apt:
+    name: ['vim','curl','git','python-setuptools','python-pip'] #,'apt-transport-https','build-essential','ca-certificates','git',]
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Updata pip 
+  tags: always
+  become: yes
+  pip:
+    name: ['pip']
+    state: latest

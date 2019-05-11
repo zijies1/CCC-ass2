@@ -1,0 +1,11 @@
+- hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: retrieve facts about a instance
+      os_server_facts:
+
+    - name: show message
+      debug:
+        msg: '{{item.name}} has existed'
+      loop: '{{openstack_servers}}' 
+      when: item.name == "mytest"

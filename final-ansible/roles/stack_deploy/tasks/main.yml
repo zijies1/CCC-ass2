@@ -1,0 +1,7 @@
+- name: copy the docker-compose file
+  copy:
+    src: ./docker-compose.yml
+    dest: /home/ubuntu/docker-compose.yml
+- name: start the couchdb service
+  become: yes
+  raw: docker stack deploy -c /home/ubuntu/docker-compose.yml mytest

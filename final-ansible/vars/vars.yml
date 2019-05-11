@@ -1,0 +1,53 @@
+availability_zone: melbourne-qh2-uom
+inventory_file: inventory/hosts.ini
+sleep_time: 60
+ssh_info: "ansible_ssh_private_key_file=~/.ssh/xudongm.pem ansible_user=ubuntu ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
+instance_image: afccf48a-9426-4618-86dc-0ceb636f0169
+private_key: xudongm
+instance_flavor: uom.mse.2c9g
+
+volumes:
+  - vol_name: mytest1-vol-1
+    vol_size: 10
+  - vol_name: mytest1-vol-2
+    vol_size: 50
+  - vol_name: mytest2-vol-1
+    vol_size: 10
+  - vol_name: mytest2-vol-2
+    vol_size: 50
+  - vol_name: mytest3-vol-1
+    vol_size: 10
+  - vol_name: mytest3-vol-2
+    vol_size: 50
+  - vol_name: mytest4-vol-1
+    vol_size: 10
+  - vol_name: mytest4-vol-2
+    vol_size: 50
+
+security_groups:
+  - ssh
+  - http
+  - couchdb5984port
+  - default
+  - internal
+
+#instance
+instances:
+  - name: mytest1     
+    volume_names:
+      - mytest1-vol-1
+      - mytest1-vol-2
+  - name: mytest2
+    volume_names:
+      - mytest2-vol-1
+      - mytest2-vol-2  
+  - name: mytest3
+    volume_names:
+      - mytest3-vol-1
+      - mytest3-vol-2 
+  - name: mytest4
+    volume_names:
+      - mytest4-vol-1
+      - mytest4-vol-2 
+
+

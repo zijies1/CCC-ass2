@@ -1,0 +1,13 @@
+- name: remove the swarm manager
+  become: yes
+  docker_swarm:
+    state: absent
+    force: true
+- name: restart docker 
+  become: yes
+  raw: systemctl daemon-reload; systemctl restart docker
+- name: init a new swarm
+  become: yes
+  docker_swarm:
+    state: present
+  register: myswarm

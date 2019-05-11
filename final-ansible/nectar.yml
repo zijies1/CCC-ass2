@@ -1,0 +1,17 @@
+- hosts: localhost
+  vars_files:
+    - vars/vars.yml
+  gather_facts: true
+
+  pre_tasks:
+    - name: make inventory directory
+      raw: mkdir -p inventory
+
+  roles:
+    - role: common
+    - role: volumes
+    - role: instances
+    - role: storeips
+    
+
+

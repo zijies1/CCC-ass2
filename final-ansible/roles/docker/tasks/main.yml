@@ -1,0 +1,103 @@
+- name: uninstall old versions of docker
+  tags: 'docker'
+  become: yes
+  apt:
+    name: ['docker','docker-engine','docker.io','runc','containerd']
+    state: absent
+
+
+# - name: show ansible_distribution
+#   debug:
+#     msg: '{{ansible_distribution}} {{ ansible_distribution_release }}'
+
+- name: install dependencies
+  tags: 'docker'
+  become: yes
+  apt:
+    name: ['apt-transport-https','ca-certificates','curl','gnupg-agent','software-properties-common']
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Add Docker apt repository key
+  tags: 'docker'
+  become: yes
+  apt_key:
+    url: http://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+
+- name: Add Docker apt repository and update apt cache
+  tags: 'docker'
+  become: yes
+  apt_repository:
+    repo: 'deb [arch=amd64] http://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable'
+    mode: '644'
+    update_cache: yes
+    state: present
+
+- name: Install docker
+  tags: 'docker'
+  become: yes
+  apt:
+    name: ['docker-ce','docker-ce-cli','containerd.io']
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: check docker proxy folder
+  tags: 'docker'
+  become: yes
+  stat:
+    path: "{{ docker_proxy_directory }}"
+  register: directory_stats
+
+# - name: show directory_stats
+#   tags: 'docker'
+#   become: yes
+#   debug:
+#     msg: "{{directory_stats}}"
+
+- name: make docker proxy directory
+  tags: 'docker'
+  become: yes
+  file:
+    path: "{{ docker_proxy_directory }}"
+    state: directory
+    mode: 0777
+  when: directory_stats.stat.exists == false
+
+- name: make docker proxy files
+  tags: 'docker'
+  become: yes
+  file:
+    path: "{{ item.file_path }}"
+    state: touch
+    mode: 0777
+  loop: "{{ docker_proxy_files }}"
+  when: directory_stats.stat.exists == false
+
+- name: set docker proxy files
+  tags: 'docker'
+  become: yes
+  lineinfile:
+    path: "{{ item.file_path }}"
+    line: "{{ docker_proxy }}"
+    create: yes
+  loop: "{{ docker_proxy_files }}"
+  when: directory_stats.stat.exists == false
+
+
+- name: install docker-compose
+  tags: 'docker'
+  become: yes
+  pip:
+    name: ['docker-compose']
+    #version above 1.23.0 has 'pull' issue: https://github.com/ansible/ansible/issues/47978
+    version: 1.22.0
+    state: present
+
+- name: restart docker
+  tags: 'docker'
+  become: yes
+  raw: systemctl daemon_reload; systemctl restart docker 

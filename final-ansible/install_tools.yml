@@ -1,0 +1,17 @@
+- hosts: all
+  gather_facts: true
+  vars:
+    my_packages:
+      - couchdb
+      - tweepy
+  tasks:
+    - name: install pip3
+      become: yes
+      apt:
+        name: python3-pip
+        state: latest
+
+    - name: install python package
+      pip:
+        name: "{{my_packages}}"
+        executable: pip3

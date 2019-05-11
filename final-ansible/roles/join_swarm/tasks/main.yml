@@ -1,0 +1,20 @@
+- name: remove the swarm swarm worker
+  become: yes
+  docker_swarm:
+    state: absent
+- name: restart docker 
+  become: yes
+  raw: systemctl daemon-reload; systemctl restart docker
+- name:
+  set_fact:
+    swarm_manager_ip: "{{groups['swarminit'][0]}}"
+- name:
+  debug: 
+    msg: "{{swarm_manager_ip}}" 
+- name: join nodes
+  become: yes
+  docker_swarm:
+    state: join
+    advertise_addr: eth0:2377
+    join_token: "{{hostvars[swarm_manager_ip]['myswarm']['swarm_facts']['JoinTokens']['Worker']}}"
+    remote_addrs: [ "{{swarm_manager_ip}}:2377" ]

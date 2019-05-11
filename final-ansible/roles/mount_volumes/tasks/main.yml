@@ -1,0 +1,64 @@
+
+# - name: install dependencies
+#   tags: 'volumes'
+#   become: yes
+#   apt:
+#     name: ['xfsprogs']
+#     state: latest
+#     install_recommends: no
+#     update_cache: yes
+
+- name: make file system
+  tags: 'volumes'
+  become: yes
+  filesystem:
+    fstype: ext4
+    dev: '{{ item.device }}'
+  when: item.device is defined
+  register: my_fs
+  with_items:
+    - "{{ volumes }}"
+
+# - name: show fs
+#   tags: 'volumes'
+#   debug:
+#     msg: "{{my_fs}}"
+
+- name: checking folders
+  tags: 'volumes'
+  become: yes
+  stat:
+    path: '{{ item.mountpoint }}'
+  register: directory_stats
+  with_items:
+    - '{{ volumes }}'
+
+- name: create directory 
+  tags: 'volumes'
+  become: yes
+  file:
+    path: '{{ item.item.mountpoint }}'
+    recurse: yes
+    state: directory
+  when: item.stat.exists == false
+  with_items:
+    - "{{ directory_stats.results }}"
+
+- name: mount device
+  tags: 'volumes'
+  become: yes
+  shell: "mount {{ item.device }} {{ item.mountpoint }}"
+  loop: "{{ volumes }}"
+
+
+# - name: mount device
+#   tags: 'volumes'
+#   become: yes
+#   mount:
+#     path: "{{ item.mountpoint }}"
+#     src: " {{ item.device }}"
+#     fstype: ext4
+#     state: mounted
+#   when: item.device is defined
+#   with_items:
+#     - "{{ volumes }}"

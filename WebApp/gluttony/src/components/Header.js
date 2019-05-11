@@ -8,29 +8,32 @@ class Header extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light" id="main-nav">
         <div className="container">
-          <a href="index.html" className="navbar-brand">SPM-Gluttony</a>
+          <a href="/" className="navbar-brand">SPM-Gluttony</a>
           <button className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <a href="#home-section" className="nav-link">Home</a>
+                <Link to="/" ><div className="nav-link">Home</div></Link>
               </li>
               <li className="nav-item">
-                <a href="#about" className="nav-link">About</a>
-              </li>
-              <li className="nav-item">
-                <a href="#team" className="nav-link">Team</a>
+                <Link to="/charts" ><div className="nav-link">Charts</div></Link>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a className="nav-link dropdown-toggle"
+                   href="/"
+                   id="navbarDropdown"
+                   role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   style = {{"color":"#007bff;"}}>
                   Maps
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                  <a className="dropdown-item"><Link to="/map">Melbourne</Link></a>
-                  <a className="dropdown-item"><Link to="/map">Sydney</Link></a>
+                  <Link to="/map"><div className="dropdown-item">Melbourne</div></Link>
+                  <Link to="/map"><div className="dropdown-item">Sydney</div></Link>
                 </div>
               </li>
             </ul>

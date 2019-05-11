@@ -1,0 +1,80 @@
+- hosts: localhost
+  gather_facts: true
+  vars:
+    new_sg:
+      name: my_http
+
+  tasks:
+    - name: get the information of the existing instance
+      os_server_facts:
+
+    - name: show servers
+      debug:
+        msg: '{{openstack_servers}}'
+
+    - name: record instance fact
+      set_fact:
+        instance_name: '{{item.name}}'
+        instance_img: '{{item.image.id}}'
+        instance_key_name: '{{item.key_name}}'
+        instance_flavor: '{{item.flavor.id}}'
+        instance_availability_zone: '{{item.az}}'
+        my_groups: '{{ item.security_groups + [new_sg]}}'
+        my_volumes: '{{item.volumes}}'
+      loop: '{{openstack_servers}}'
+      when: item.name == "test"
+
+    - name: get security groups names
+      set_fact:
+        instance_security_groups: '{{ instance_security_groups|default([]) + [item.name] }}'
+      loop: '{{my_groups}}'
+
+    #- name: show my_groups
+      #debug:
+        #msg: '{{instance_security_groups}}'
+
+    - name: get volumes names
+      set_fact:
+        instance_volumes: '{{ instance_volumes|default([]) + [item.id] }}'
+      loop: '{{my_volumes}}'
+
+    - name: create a security group
+      os_security_group:
+        name: new_sg.name
+        description: http access
+        state: present
+
+    - name: create security group rules
+      os_security_group_rule:
+        security_group: new_sg.name
+        protocol: tcp
+        port_range_min: 80
+        port_range_max: 80
+        remote_ip_prefix: 128.0.0.0/0
+        state: present
+
+    - name: remove old instance
+      os_server:
+        state: absent
+        name: test
+
+    - name: recreate a new instance with one more security groups
+      os_server:
+        state: present
+        name: '{{instance_name}}'
+        image: '{{instance_img}}'
+        key_name: '{{instance_key_name}}'
+        flavor: '{{instance_flavor}}'
+        availability_zone: '{{instance_availability_zone}}'
+        security_groups: '{{instance_security_groups}}'
+        volumes: '{{instance_volumes|default(my_volumes)}}' #volume maybe empty
+        auto_floating_ip: yes
+        wait: yes
+        timeout: 600
+      register: os_instance
+
+    - name: show new ip 
+      debug:
+        msg: 'new ip is {{os_instance.openstack.public_v4}}'
+
+

@@ -1,0 +1,19 @@
+volumes:
+  - device: "/dev/vdb"
+    mountpoint: "/var/lib/docker"
+  - device: "/dev/vdc"
+    mountpoint: "/data"
+
+proxy: "http_proxy=\"http://wwwproxy.unimelb.edu.au:8000\"\nhttps_proxy=\"http://wwwproxy.unimelb.edu.au:8000\"\nftp_proxy=\"http://wwwproxy.unimelb.edu.au:8000\"\nno_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu"
+docker_proxy: "[Service]\nEnvironment=\"HTTP_PROXY=http://wwwproxy.unimelb.edu.au:8000\""
+docker_proxy_directory: "/etc/systemd/system/docker.service.d"
+docker_proxy_files:
+  - file_path: "/etc/systemd/system/docker.service.d/http-proxy.conf"
+  - file_path: "/etc/systemd/system/docker.service.d/https-proxy.conf"
+
+public_keys: 
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbfcIbKCnxfrBjz+kFFR1CcYpHl3zpzJAPyM0pc1jB3WmgXzjiLe+TfkfDnbfUIqc4stA3+iFWCLQOO6Vrg1xNkr339LCeSRi6xFPggq1i23U2dGE9KHJ2r9anfvabHwQXZbTPN43cAtHcRHU+gg00bDeZ+ippGG2XDnr0fozj7jJX091eQYfvgiD2VzuK1vFbxmpYddf2QptfxRKwKTcDNSxbM0PhfJnRxETXOlPH1tvc0X4rKYbGM67XM3NOJ2Jp7IhbIKC/iU+AYsVWA0HWnhV8N1BDhFPsCBtVybtJD2pgYQpfxLIdyJA7JkxkN11yfugUJcUAmEl1mUmFC9p5 Generated-by-Nova"
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC2oQvnk7FdIZzdc34Qsu3F4ThoeWmwkNQul3cU+6sP4ZJjtutpi9kMZYY6U46V4W8M0IPNSxlkYU9ueXEfxpzuD6Y5EYiMsfheyRgFa7S0hsPAheuIfdLi+e1CTUjY5cqTrBeNxhkUkxdZfZNZOUiWirpTh9bj/zLJ0F/ZdIMapFH+4DH/B7I8TALTD1SrrD6m+8r075n7QR8ww/9CnUz5iqqSrl/42xwSTbr4goarzkSMSuAojwOI27c2JM70TFEpB7l095xzZAIeGE79WV4Jce5MLLuTYLb6/f+et5WhL3pgJXvnKbErTV2HWz8r5WIXRSyAlS6ieiwiXAAYFbyD Generated-by-Nova"
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbOkqMHnFjPG7REok0OEPnzbk6S4oE9VOwNjpi1ebXI1O1yr7AmQAYx9tsWY4srBFSYXHKvyJxjbBDEI5fH8UzcOpgC9iwihjURLhv3g2yaSnr/ePX56Kh5/A6xqHpmAmR3Am/GkfWdm4W3m2UMpZGax04YFA9m9IP36KfI0/gEF3S2sufp3dUHLyXlACX27UMlxHBgmnQqcFFS47Vqol5yu+StbTHmZ2sjdbrBk71YR815mJNvTiognHlfqUYY+D2lFL7px6KzHHbyjiDgMWeVlShjkNQ+AYQphrnHVr72srFXX0p+JG50gx4W9vHyMd6GFhpxxmvbV7gRqNcktn1 Paranoid@Macbook-of-Defang.local"
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDz0g1jMP5zWxvVqzucpbLntl2fNvVriJrXetDq2l4ZtnbUGy9xKBIoLg/CxmQSm7sGCprhI/a6tACc+ncVV49mxpDDFYjnxD7VO2UZbPLinXA1vCdNl15IYGEWLI2peX36kJ0GqRbRHI+RxWcriokNnsn4g6D2HkL9M9/KYOrmM85SPYRggEH1tNAcZ30quzfqZkPAZ4jBbWWcIMp6wa9rN8tPv5ifk2CKNhwZVL9uJJfawIEn3F8lYBiuB6+uXJti9dTX6wvBXVFGSk+x6MZtfxKgUXnYtZVTy7M6+m8zLjYKFQce5LRuFBs7ueNGhkNlOMV3lY7iRbfI4l46gF43 Generated-by-Nova"
+

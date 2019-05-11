@@ -6,8 +6,18 @@ import sys
 import keywords
 from profanity_check import predict, predict_prob
 
-# def get_foods(text):
-# 	
+def get_foods(text):
+	jsf = open("menuitems.json")
+	menudata = json.load(jsf)
+	foodlist = menudata["menuItems"]
+	lcfoodlist = [x.lower() for x in foodlist]
+
+	t_textc = text.lower()
+	containfood = any(substring in t_textc for substring in lcfoodlist)
+	if containfood:
+		return [s for s in lcfoodlist if s in t_textc]
+	else:
+		return []
 
 def get_wrath_score(text):
 	# pred = predict([text])
@@ -71,6 +81,7 @@ if __name__ == '__main__':
 			wrath_score = get_wrath_score(tweet['full_text'])
 			senti_score = get_senti_score(tweet['full_text'])
 			time_period = get_period(tweet['created_at'])
+			food_list = get_foods(tweet['full_text'])
 			
 			newdic = {
 				'_id':tweet['_id'],
@@ -87,7 +98,7 @@ if __name__ == '__main__':
 				'year':time_period[4],
 				'wrath_score':wrath_score,
 				'senti_score':senti_score,
-				# 'foods':
+				'foods': foodlist
 			}
 			# print(newdic)
 			db2save.save(newdic)

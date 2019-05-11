@@ -13,11 +13,9 @@ def get_foods(text):
 	lcfoodlist = [x.lower() for x in foodlist]
 
 	t_textc = text.lower()
-	containfood = any(substring in t_textc for substring in lcfoodlist)
-	if containfood:
-		return [s for s in lcfoodlist if s in t_textc]
-	else:
-		return []
+
+	return [s for s in lcfoodlist if s in t_textc]
+
 
 def get_wrath_score(text):
 	# pred = predict([text])

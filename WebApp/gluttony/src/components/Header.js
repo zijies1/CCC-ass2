@@ -17,9 +17,12 @@ class Header extends React.Component {
               <li className="nav-item">
                 <Link to="/" ><div className="nav-link">Home</div></Link>
               </li>
+              <li className="nav-item">
+                <Link to="/charts" ><div className="nav-link">Charts</div></Link>
+              </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle"
-                   href="#"
+                   href="/"
                    id="navbarDropdown"
                    role="button"
                    data-toggle="dropdown"
@@ -31,7 +34,6 @@ class Header extends React.Component {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <Link to="/map"><div className="dropdown-item">Melbourne</div></Link>
                   <Link to="/map"><div className="dropdown-item">Sydney</div></Link>
-                  <Link to="/charts"><div className="dropdown-item">Charts</div></Link>
                 </div>
               </li>
             </ul>

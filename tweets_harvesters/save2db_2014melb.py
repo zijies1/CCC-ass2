@@ -2,9 +2,9 @@ import json
 import couchdb
 
 city_name = 'Melbourne'
-username = "rongxiaol"
-password = "12345678"
-IP = "127.0.0.1"
+username = "admin"
+password = "123456"
+IP = "172.26.37.244"
 port = "5984"
 db_name = 'raw_2014' + city_name.lower()
 couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))

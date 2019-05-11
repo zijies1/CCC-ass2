@@ -7,27 +7,14 @@ import sys
 
 # 1h - 450 tweets
 
-# def get_api(app_id=0):
-	# consumer_key = config.app_keys_tokens[app_id]['consumer_key']
-	# consumer_secret = config.app_keys_tokens[app_id]['consumer_secret']
-	# access_token = config.app_keys_tokens[app_id]['access_token']
-	# access_token_secret = config.app_keys_tokens[app_id]['access_token_secret']
-
-	# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-	# auth.set_access_token(access_token, access_token_secret)
-	# return tweepy.API(auth, wait_on_rate_limit=True)
-
-
 class TweetListener(tweepy.StreamListener):
-	def __init__(self,db):
+	def __init__(self,db,city_name):
 		tweepy.StreamListener.__init__(self)
 		self.db = db
-		# self.num = 0
+		self.city_name = city_name
 
 	def on_status(self, status):
 		try:
-			# self.num += 1
-			# print(self.num)
 			tweet = status._json
 			# print(tweet)
 			# print()
@@ -36,7 +23,6 @@ class TweetListener(tweepy.StreamListener):
 				tweet['entities'] = tweet['extended_tweet']['entities']
 			else:
 				tweet['full_text'] = tweet['text']
-			city_name = 'Melbourne'
 			new_dic = {
 			'_id':tweet['id_str'],
 			'created_at':tweet['created_at'],
@@ -66,16 +52,20 @@ class TweetListener(tweepy.StreamListener):
 		print(status)
 
 if __name__ == '__main__':
+	city_name = 'Melbourne'
+	username = "rongxiaol"
+	password = "12345678"
+	IP = "localhost"
+	port = "5984"
+	
 	# if len(sys.argv) >= 2:
 	#   city_name = sys.argv[1]
-	#   geocode = config.geocodes[city_name]
 	# else:
 	#   print('no parameter!')
 	#   sys.exit(0)
-	city_name = 'Melbourne'
-
+	
 	## app keys and tokens
-	app_id=5
+	app_id = config.stream_appid[city_name]
 	consumer_key = config.app_keys_tokens[app_id]['consumer_key']
 	consumer_secret = config.app_keys_tokens[app_id]['consumer_secret']
 	access_token = config.app_keys_tokens[app_id]['access_token']
@@ -87,10 +77,6 @@ if __name__ == '__main__':
 	api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 	## connect to database
-	username = "rongxiaol"
-	password = "12345678"
-	IP = "127.0.0.1"
-	port = "5984"
 	db_name = 'raw_' + city_name.lower()
 	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 	try:
@@ -99,12 +85,10 @@ if __name__ == '__main__':
 	    db = couchserver[db_name]
 
 	## start to listen
-	tweetlistener = TweetListener(db)
-
+	tweetlistener = TweetListener(db,city_name)
 	print('---------- Now collecting Tweets ----------')
-	
+
 	## melbourne location info ##
-	placeid = '01864a8a64df9dc4'
 	coordinates = config.coordinates[city_name]
 
 	## stream method ##

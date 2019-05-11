@@ -31,6 +31,8 @@ class Header extends React.Component {
 
                   <a className="dropdown-item"><Link to="/map">Melbourne</Link></a>
                   <a className="dropdown-item"><Link to="/map">Sydney</Link></a>
+                  <a className="dropdown-item"><Link to="/charts">Charts</Link></a>
+
                 </div>
               </li>
             </ul>

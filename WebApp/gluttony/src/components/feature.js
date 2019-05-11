@@ -31,15 +31,15 @@ class Feature extends Component {
             <div className="dropdown-menu">
               <div className="input-group-text bg-white map-check">
                 <input type="checkbox" aria-label="Checkbox for following text input"/>
-                <div class="input-group-append">
-                  <span class="input-group-text map-check-item">Food</span>
+                <div className="input-group-append">
+                  <span className="input-group-text map-check-item">Food</span>
                 </div>
               </div>
               <div role="separator" className="dropdown-divider"></div>
               <div className="input-group-text bg-white map-check">
                 <input type="checkbox" aria-label="Checkbox for following text input"/>
-                <div class="input-group-append">
-                  <span class="input-group-text map-check-item">Food</span>
+                <div className="input-group-append">
+                  <span className="input-group-text map-check-item">Food</span>
                 </div>
               </div>
             </div>

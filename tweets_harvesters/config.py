@@ -54,6 +54,21 @@ coordinates = {
 	'Brisbane':[152.10,-28.34,153.55,-26.45],
 	'Perth':[115.40,-32.80,116.41,-31.45]
 }
+
+search_appid = {
+	'Sydney': 0,
+	'Melbourne': 1,
+	'Brisbane': 2,
+	'Perth': 3
+}
+
+stream_appid = {
+	'Sydney': 4,
+	'Melbourne': 5,
+	'Brisbane': 6,
+	'Perth': 7
+}
+
 # city = 'Sydney'
 # placeid = '0073b76548e5984f'
 # centre = [-33.865143,151.209900]

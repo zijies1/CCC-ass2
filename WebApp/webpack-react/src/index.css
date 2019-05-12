@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h2,
+h3 {
+  margin: 10px;
+  font-size: 1.2em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+p {
+  font-size: 0.85em;
+  margin: 10px;
+  text-align: left;
+}
+
+/**
+* Create a position for the map
+* on the page */
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  margin-right: 20px;
+  font-family: Arial, sans-serif;
+  /* overflow: auto; */
+  border-radius: 3px;
+}
+
+.map-overlay2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 20px;
+  font-family: Arial, sans-serif;
+  /* overflow: auto; */
+  border-radius: 3px;
+}
+
+#features {
+  top: 0;
+  left: 0;
+  height: 80px;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 500px;
+}
+
+#legend {
+  padding: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;
+  height: 170px;
+  margin-bottom: 40px;
+  width: 135px;
+}
+
+.legend-key {
+  display: inline-block;
+  border-radius: 20%;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+
+
+#map-hr{
+  color:black;
+}
+#map-col-1 {
+  border-right: 1px solid #333;
+}
+.map-check{
+  border: 0px solid black;
+}
+.map-check-item{
+  border: 0px solid black;
+  background-color: white;
+}

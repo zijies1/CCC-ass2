@@ -19,7 +19,7 @@ if __name__ == '__main__':
 		print('no enough parameters!')
 		sys.exit(0)
 
-	db_name = city_name.lower()
+	db_name = city_name.lower() + "_past"
 	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 	try:
 		db = couchserver.create(db_name)
@@ -63,5 +63,6 @@ if __name__ == '__main__':
 					db.save(new_dic)
 				except Exception as e:
 					print(e)
+					time.sleep(60 * 5)
 			line = f.readline()
 	print('time used: ', time.time()-start)

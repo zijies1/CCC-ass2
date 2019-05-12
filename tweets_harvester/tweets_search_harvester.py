@@ -34,7 +34,7 @@ if __name__ == '__main__':
 	app_id = config.search_appid[city_name]
 	api = get_api(app_id=app_id)
 
-	db_name = city_name.lower()
+	db_name = city_name.lower() + '_recent'
 	couchserver = couchdb.Server("http://%s:%s@%s:%s/" % (username,password,IP,port))
 	try:
 		db = couchserver.create(db_name)
@@ -90,5 +90,6 @@ if __name__ == '__main__':
 			break
 		except Exception as e3:
 			print(e3)
+			time.sleep(60 * 5)
 			continue
 	print('time used: ', time.time()-start)

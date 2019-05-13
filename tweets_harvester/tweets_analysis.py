@@ -6,6 +6,7 @@ def get_foods(text):
 	foodlist = menudata["menuItems"]
 	lcfoodlist = [x.lower() for x in foodlist]
 	t_textc = text.lower()
+	t_textlist = t_textc.split(" ")
 	return [s for s in lcfoodlist if s in t_textc]
 	
 def get_period(created_at):

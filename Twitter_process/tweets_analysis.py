@@ -13,8 +13,8 @@ def get_foods(text):
 	lcfoodlist = [x.lower() for x in foodlist]
 
 	t_textc = text.lower()
-
-	return [s for s in lcfoodlist if s in t_textc]
+	t_textlist = t_textc.split(" ")
+	return [s for s in lcfoodlist if s in t_textlist]
 
 
 def get_wrath_score(text):

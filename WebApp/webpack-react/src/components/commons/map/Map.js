@@ -5,9 +5,21 @@ import {changeFeature} from "../../actions";
 mapboxgl.accessToken = "pk.eyJ1IjoiemlqaWVzMSIsImEiOiJjanV3aTcwNjMwY3BtNDRxdDhsYTRnbTBmIn0.Uo9vbFX1xIGYsDhLxEu9hQ";
 
 class Map extends Component {
+  componentDidUpdate(){
+    console.log(this.props.feature.aurin);
+    if (this.props.feature.aurin === "Obesity") {
+      this.map.setLayoutProperty("aurinOverweight-fills", "visibility", "none");
+      this.map.setLayoutProperty("aurinObese-fills", "visibility", "visible");
+    } else {
+      this.map.setLayoutProperty("aurinObese-fills", "visibility", "none");
+      this.map.setLayoutProperty("aurinOverweight-fills", "visibility", "visible");
+    }
+  }
   componentDidMount() {
-    var hoveredMelId = null;
-    const {melJson} = this.props.data;
+    console.log(this.props.data);
+    var hoveredausId = null;
+    var hoveredVicId = null;
+    const {aurinObese,aurinOverweight} = this.props.data;
     var {twrJson} = this.props.data;
 
     this.map = new mapboxgl.Map({
@@ -19,9 +31,13 @@ class Map extends Component {
     this.map.addControl(new mapboxgl.NavigationControl());
 
     this.map.on("load", () =>  {
-      this.map.addSource("melJson", {
+      this.map.addSource("aurinObese", {
         "type": "geojson",
-        "data": melJson
+        "data": aurinObese
+      });
+      this.map.addSource("aurinOverweight", {
+        "type": "geojson",
+        "data": aurinOverweight
       });
       this.map.addSource("twrJson", {
         "type": "geojson",
@@ -32,12 +48,12 @@ class Map extends Component {
       });
 
       this.map.addLayer({
-          "id": "melJson-fills",
+          "id": "aurinObese-fills",
           "type": "fill",
-          "source": "melJson",
+          "source": "aurinObese",
           "layout": {},
           "paint": {
-          "fill-color": ["step",["get","density"],"#ffeda0",100,"#ffeda0",200,"#fed976",500,"#feb24c",1000,"#fd8d3c",2000,"#fc4e2a",5000,"#e31a1c",10000,"#bd0026"],
+          "fill-color": ["step",["get","density"],"#ffeda0",1000,"#ffeda0",2000,"#fed976",5000,"#feb24c",100000,"#fd8d3c",200000,"#fc4e2a",500000,"#e31a1c",1000000,"#bd0026"],
           "fill-opacity": ["case",
               ["boolean", ["feature-state", "hover"], false],
               0.8,
@@ -47,9 +63,35 @@ class Map extends Component {
       });
 
       this.map.addLayer({
-        "id": "melJson-borders",
+        "id": "aurinObese-borders",
         "type": "line",
-        "source": "melJson",
+        "source": "aurinObese",
+        "layout": {},
+        "paint": {
+        "line-color": "#627BC1",
+        "line-width": 2
+        }
+      });
+
+      this.map.addLayer({
+          "id": "aurinOverweight-fills",
+          "type": "fill",
+          "source": "aurinOverweight",
+          "layout": {},
+          "paint": {
+            "fill-color": ["step",["get","density"],"#f2f0f7",1000,"#dadaeb",2000,"#bcbddc",5000,"#9e9ac8",100000,"#756bb1",200000,"#54278f"],
+            "fill-opacity": ["case",
+                ["boolean", ["feature-state", "hover"], false],
+                0.8,
+                0.4
+              ]
+          }
+      });
+
+      this.map.addLayer({
+        "id": "aurinOverweight-borders",
+        "type": "line",
+        "source": "aurinOverweight",
         "layout": {},
         "paint": {
         "line-color": "#627BC1",
@@ -110,25 +152,49 @@ class Map extends Component {
         }
       });
 
-      this.map.on("mousemove", "melJson-fills", (e)=> {
+      if (this.props.feature.aurin === "Obesity") {
+        this.map.setLayoutProperty("aurinOverweight-fills", "visibility", "none");
+        this.map.setLayoutProperty("aurinObese-fills", "visibility", "visible");
+      } else {
+        this.map.setLayoutProperty("aurinObese-fills", "visibility", "none");
+        this.map.setLayoutProperty("aurinOverweight-fills", "visibility", "visible");
+      }
+
+      this.map.on("mousemove", "aurinObese-fills", (e)=> {
         if (e.features.length > 0) {
-          this.props.changeFeature(e.features[0].properties.name + ":" + e.features[0].properties.density);
-          if (hoveredMelId) {
-          this.map.setFeatureState({source: "melJson", id: hoveredMelId}, { hover: false});
+          this.props.changeFeature(e.features[0].properties.name + "("+ this.props.feature.aurin + ")" + ":" + e.features[0].properties.density);
+          if (hoveredausId) {
+            this.map.setFeatureState({source: "aurinObese", id: hoveredausId}, { hover: false});
           }
-          hoveredMelId = e.features[0].id;
-          this.map.setFeatureState({source: "melJson", id: hoveredMelId}, { hover: true});
+          hoveredausId = e.features[0].id;
+          this.map.setFeatureState({source: "aurinObese", id: hoveredausId}, { hover: true});
+        }
+      });
+
+
+      this.map.on("mousemove", "aurinOverweight-fills", (e)=> {
+        if (e.features.length > 0) {
+          this.props.changeFeature(e.features[0].properties.name + "("+ this.props.feature.aurin + ")" + ":" + e.features[0].properties.density);
+          if (hoveredVicId) {
+            this.map.setFeatureState({source: "aurinOverweight", id: hoveredVicId}, { hover: false});
+          }
+          hoveredVicId = e.features[0].id;
+          this.map.setFeatureState({source: "aurinOverweight", id: hoveredVicId}, { hover: true});
         }
       });
 
       // When the mouse leaves the state-fill layer, update the feature state of the
       // previously hovered feature.
-      this.map.on("mouseleave", "melJson-fills","clusters", ()=> {
+      this.map.on("mouseleave", "aurinOverweight-fills", "aurinObese-fills","clusters", ()=> {
         this.map.getCanvas().style.cursor = "";
-        if (hoveredMelId) {
-          this.map.setFeatureState({source: "melJson", id: hoveredMelId}, { hover: false});
+        // if (hoveredVicId) {
+        //   this.map.setFeatureState({source: "aurinOverweight", id: hoveredVicId}, { hover: false});
+        // }
+        if (hoveredausId) {
+          this.map.setFeatureState({source: "aurinObese", id: hoveredausId}, { hover: false});
         }
-        hoveredMelId =  null;
+        hoveredausId =  null;
+        // hoveredVicId =  null;
       });
 
       this.map.on("click", "clusters", (e) => {
@@ -169,6 +235,9 @@ class Map extends Component {
     });
   }
 
+  render_layer(){
+
+  }
 
   render() {
     return (
@@ -180,7 +249,7 @@ class Map extends Component {
 function mapStateToProps(state) {
   return {
     data:state.data,
-    active:state.feature.active
+    feature:state.feature
   };
 }
 

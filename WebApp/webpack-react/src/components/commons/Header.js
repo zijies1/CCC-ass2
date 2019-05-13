@@ -27,8 +27,7 @@ class Header extends React.Component {
                    role="button"
                    data-toggle="dropdown"
                    aria-haspopup="true"
-                   aria-expanded="false"
-                   style = {{"color":"#007bff;"}}>
+                   aria-expanded="false">
                   Maps
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">

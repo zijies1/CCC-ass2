@@ -6,7 +6,7 @@ class MapContainer extends React.Component {
 
   render() {
     return (
-      <div class="wrapper">
+      <div className="wrapper">
          <Map/>
          <Lengend/>
          <Feature/>

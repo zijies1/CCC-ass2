@@ -18,51 +18,47 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # not in use
-
-@app.route('/api/melb14', methods=['GET'])
+@app.route('/api/mapview', methods=['POST'])
 def f():
-	result_list = []
-	textkey = "full_text"
-	coorkey = "coordinates"
+	if not request.json or not 'location' in request.json:
+		abort(400)
+	loc = request.json['location']
+	year = request.json['year']
 
-	def generate():
-		for i in melbpast:
-			doc = melbpast[i]
-			if textkey in doc:
-				text = doc["full_text"]
-			else:
-				text = ""
-			if coorkey in doc:
-				coor = doc["coordinates"]["coordinates"]
-			else:
-				coor = []
+	locdb = {
+		'melbourne' : melbpast,
+		'sydney' : sydneypast,
+		'perth' : perthpast,
+		'brisbane' : brispast
+	}
 
-			resp = {
-				"type": "FeatureCollection",
-				"features":[
-					{
-						"type": "Feature",
-						"properties":{
-							"message": text
-							#content
-						},
-						"geometry": {
-							"coordinates": coor,
-							"type": "Point"
-						}
-					}
-				]
+	db = locdb[loc]
+
+	dv = db.view('_design/mapview/_view/map-view'+str(year))
+
+	feature_list = []
+	for row in dv:
+		feat = {
+			"type": "Feature",
+			"properties":{
+				"message": row.key
+				#content
+			},
+			"geometry": {
+				"coordinates": row.value,
+				"type": "Point"
 			}
+		}
+		feature_list.append(feat)
 
-			yield json.dumps(resp)
 
-	# result_list.append(resp)
+	result_list = {
+		"type": "FeatureCollection",
+		"features": feature_list
+	}
 
-	# def generate():
-	# 	yield json.dumps({'result': result_list})
+	return json.dumps({'result': result_list})
 
-	# return json.dumps({'result': result_list})
-	return Response(stream_with_context(generate()))
 
 
 

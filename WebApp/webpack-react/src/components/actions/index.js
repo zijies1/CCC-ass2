@@ -2,7 +2,8 @@ import {
   CHANGE_FEATURE,
   CHANGE_CHART,
   CHANGE_AURIN,
-  ADD_DATA
+  ADD_DATA,
+  SET_CENTER
 } from '../utils/constants';
 
 export function changeFeature(name) {
@@ -38,6 +39,15 @@ export function addData(data,key) {
     type: ADD_DATA,
     payload: {
       data:data,
+      key:key
+    }
+  };
+}
+
+export function setCenter(key) {
+  return {
+    type: SET_CENTER,
+    payload: {
       key:key
     }
   };

@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import reducers from './components/reducers';
 import {addData} from './components/actions';
 import axios from "axios";
-const root = "http://127.0.0.1:5000/";
+const root = "http://172.26.38.153:8081/";
 
 axios.get(root+"aurinObese")
       .then(res => {

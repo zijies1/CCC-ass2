@@ -3,7 +3,7 @@ from flask import send_file
 from flask_cors import CORS
 import os
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:8080","http://10.12.241.30:5000","http://localhost:5000"]}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/aurinObese',methods=['GET'])
 def aurinObese():

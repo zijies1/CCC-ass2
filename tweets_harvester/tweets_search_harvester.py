@@ -19,10 +19,10 @@ def get_api(app_id):
 if __name__ == '__main__':
 	username = "admin"
 	password = "123456"
-	IP = "172.26.38.0"
+	IP = "172.26.37.241"
 	port = "5984"
-	sincedate = "2019-05-04"
-	untildate = "2019-05-11"
+	sincedate = "2019-05-10"
+	untildate = "2019-05-13"
 
 	if len(sys.argv) >= 2:
 		city_name = sys.argv[1]

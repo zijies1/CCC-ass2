@@ -9,7 +9,7 @@ start = time.time()
 if __name__ == '__main__':
 	username = "admin"
 	password = "123456"
-	IP = "172.26.38.0"
+	IP = "172.26.37.241"
 	port = "5984"
 
 	if len(sys.argv) >= 3:

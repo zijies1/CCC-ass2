@@ -8,36 +8,28 @@ export default class Chart extends React.Component {
       labels: ['Melbourne','Sydney','Brisbane','Perth'],
       datasets: [
         {
-          label: '2015',
+          label: '2014',
           backgroundColor: 'rgba(255,99,132,0.5)',
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
           hoverBackgroundColor: 'rgba(255,99,132,0.8)',
           hoverBorderColor: 'rgba(255,99,132,1)',
-          data: [65, 59, 80, 81]
+          data: this.props.data[0]
         },
         {
-          label: '2016',
+          label: '2015',
           backgroundColor: 'rgb(66,134,244,0.5)',
           borderColor: 'rgb(66,134,244,1)',
           borderWidth: 1,
           hoverBackgroundColor: 'rgb(66,134,244,0.8)',
           hoverBorderColor: 'rgb(66,134,244,1)',
-          data: [45, 39, 54, 57]
-        },
-        {
-          label: '2017',
-          backgroundColor: 'rgb(237,184,28,0.5)',
-          borderColor: 'rgb(237,184,28,1)',
-          borderWidth: 1,
-          hoverBackgroundColor: 'rgb(237,184,28,0.8)',
-          hoverBorderColor: 'rgb(237,184,28,1)',
-          data: [39, 21, 93,87]
+          data: this.props.data[1]
         }
       ]
-};
+    };
     return (
       <div>
+        <div className="display-4 text-dark text-center my-3">Number of gluttony related tweets for different cities in 2014&2015</div>
         <Bar data={data} />
       </div>
     );

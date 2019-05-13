@@ -1,41 +1,20 @@
 import {CHANGE_FEATURE,CHANGE_AURIN} from '../utils/constants';
 
-const options = [{
-  name: 'Population',
-  description: 'Estimated total population',
-  property: 'pop_est',
-  stops: [
-    [0, '#f8d5cc'],
-    [1000000, '#f4bfb6'],
-    [5000000, '#f1a8a5'],
-    [10000000, '#ee8f9a'],
-    [50000000, '#ec739b'],
-    [100000000, '#dd5ca8'],
-    [250000000, '#c44cc0'],
-    [500000000, '#9f43d7'],
-    [1000000000, '#6e40e6']
-  ]
-}, {
-  name: 'GDP',
-  description: 'Estimate total GDP in millions of dollars',
-  property: 'gdp_md_est',
-  stops: [
-    [0, '#f8d5cc'],
-    [1000, '#f4bfb6'],
-    [5000, '#f1a8a5'],
-    [10000, '#ee8f9a'],
-    [50000, '#ec739b'],
-    [100000, '#dd5ca8'],
-    [250000, '#c44cc0'],
-    [5000000, '#9f43d7'],
-    [10000000, '#6e40e6']
-  ]
-}];
+const options = {
+  Obesity:{
+    layers : ['0-1K', '1K-2K', '2K-1K0', '10K-50K', '50K-100K', '100K-150K', '150K-200K', '200K+'],
+    colors : ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026']
+  },
+  Overweight:{
+    layers : ['0-50K', '50K-100K', '100K-150K', '150K-200K', '200K-250K', '250K-300K',"300k-350k","350K"],
+    colors : ['#fcfbfd', '#efedf5', '#dadaeb', '#bcbddc', '#9e9ac8', '#807dba','#6a51a3','#4a1486']
+  }
+};
 
 const INITIAL_STATE = {
   name: "Hover over a state!",
   aurin: "Obesity",
-  active: options[0]
+  active: options.Obesity
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -49,7 +28,8 @@ export default function(state = INITIAL_STATE, action) {
        console.log(CHANGE_AURIN,action);
        return {
          ...state,
-         aurin:action.payload.name
+         aurin:action.payload.name,
+         active: options[action.payload.name]
         };
     default:
       return state;

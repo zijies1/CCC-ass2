@@ -1,6 +1,6 @@
 import React from "react";
 import Map from "./map/Map";
-import Lengend from "./map/Lengend";
+import Legend from "./map/Legend";
 import Feature from "./map/Feature";
 class MapContainer extends React.Component {
 
@@ -8,7 +8,7 @@ class MapContainer extends React.Component {
     return (
       <div className="wrapper">
          <Map/>
-         <Lengend/>
+         <Legend/>
          <Feature/>
       </div>
     )

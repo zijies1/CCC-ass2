@@ -1,0 +1,12 @@
+- hosts: webservers
+  tasks:
+    - name: copy docker image build resource files
+      copy:
+        src: ./myapi
+        dest: /home/ubuntu
+    - name: build image
+      become: yes
+      raw: cd /home/ubuntu/myapi; docker build --tag=myapi .
+    - name: start the service
+      become: yes
+      raw: cd /home/ubuntu/myapi; docker run -d -p 8081:8081 myapi

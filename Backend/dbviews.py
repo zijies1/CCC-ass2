@@ -75,6 +75,23 @@ viewData_timeblock={
 	},
 }
 
+viewData_map={
+	"map-view14" : {
+		"map": "function(doc) {var foods = doc.foods;var coordinates = doc.coordinates.coordinates;var time = doc.created_at;if (Date.parse(time) < new Date('2014-12-31') && Date.parse(time) > new Date('2014-01-01')) {if (foods.length > 0) {emit(foods, coordinates)}}}"
+	},
+	"map-view15" : {
+		"map": "function(doc) {var foods = doc.foods;var coordinates = doc.coordinates.coordinates;var time = doc.created_at;if (Date.parse(time) < new Date('2015-12-31') && Date.parse(time) > new Date('2015-01-01')) {if (foods.length > 0) {emit(foods, coordinates)}}}"
+	},
+	"map-view16" : {
+		"map": "function(doc) {var foods = doc.foods;var coordinates = doc.coordinates.coordinates;var time = doc.created_at;if (Date.parse(time) < new Date('2016-12-31') && Date.parse(time) > new Date('2016-01-01')) {if (foods.length > 0) {emit(foods, coordinates)}}}"
+	},
+	"map-view17" : {
+		"map": "function(doc) {var foods = doc.foods;var coordinates = doc.coordinates.coordinates;var time = doc.created_at;if (Date.parse(time) < new Date('2017-12-31') && Date.parse(time) > new Date('2017-01-01')) {if (foods.length > 0) {emit(foods, coordinates)}}}"
+	},
+	"map-view18" : {
+		"map": "function(doc) {var foods = doc.foods;var coordinates = doc.coordinates.coordinates;var time = doc.created_at;if (Date.parse(time) < new Date('2018-12-31') && Date.parse(time) > new Date('2018-01-01')) {if (foods.length > 0) {emit(foods, coordinates)}}}"
+	}
+}
 
 
 
@@ -96,6 +113,7 @@ def create_design_doc(design, view):
 
 
 if __name__ == '__main__':
+	create_design_doc('_design/mapview', viewData_map)
 	create_design_doc('_design/foodtags', viewData_foodtags)
 	create_design_doc('_design/timeblock', viewData_timeblock)
 	print("done")

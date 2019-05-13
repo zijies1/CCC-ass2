@@ -77,6 +77,11 @@ def getGluttonynum():
 
 
 
+@app.route('/api/test/hello', methods=['GET'])
+def hellof():
+	return "hello"
+
+
 if __name__ == '__main__':
 	app.run()
 

@@ -54,6 +54,10 @@ p {
   border-radius: 3px;
 }
 
+.mapboxgl-popup-content{
+  color: blue;
+}
+
 #features {
   top: 0;
   left: 0;

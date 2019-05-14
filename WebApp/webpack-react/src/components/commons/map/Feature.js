@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 import { Link } from "react-router-dom";
 import {changeAurin} from "../../actions";
+import {TIME_PERIODS} from "../../utils/constants";
+import StepSlider from './StepSlider';
 
 class Feature extends Component {
 
@@ -13,11 +15,36 @@ class Feature extends Component {
     this.toObesity = () => {
       this.props.changeAurin("Obesity");
     };
+    this.setTime = (e) =>{
+      if(this.props.feature.time[e.target.value] === "dropdown-item active"){
+        this.props.setTime(e.target.value,"dropdown-item");
+      }else{
+        this.props.setTime(e.target.value,"dropdown-item active");
+      }
+    }
+
   }
 
   render() {
-    const {name,aurin} = this.props.feature;
-
+    // <div className="input-group-prepend">
+    //   <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+    //   <div className="dropdown-menu">
+    //     <div className="input-group-text bg-white map-check">
+    //       <input type="checkbox" aria-label="Checkbox for following text input"/>
+    //       <div className="input-group-append">
+    //         <span className="input-group-text map-check-item">Food</span>
+    //       </div>
+    //     </div>
+    //     <div role="separator" className="dropdown-divider"></div>
+    //     <div className="input-group-text bg-white map-check">
+    //       <input type="checkbox" aria-label="Checkbox for following text input"/>
+    //       <div className="input-group-append">
+    //         <span className="input-group-text map-check-item">Food</span>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    const {name,aurin,time} = this.props.feature;
     return (
       <div className="map-overlay2 text-dark" id="features">
        <div className="row">
@@ -28,32 +55,11 @@ class Feature extends Component {
             </button>
           </div>
           <div className="input-group-prepend">
-            <button className="btn btn-primary  dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-            <div className="dropdown-menu">
-              <a className="dropdown-item" href="#">Action</a>
-              <a className="dropdown-item" href="#">Another action</a>
-              <a className="dropdown-item" href="#">Something else here</a>
-              <div role="separator" className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">Separated link</a>
-            </div>
-          </div>
-          <div className="input-group-prepend">
-            <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-            <div className="dropdown-menu">
-              <div className="input-group-text bg-white map-check">
-                <input type="checkbox" aria-label="Checkbox for following text input"/>
-                <div className="input-group-append">
-                  <span className="input-group-text map-check-item">Food</span>
-                </div>
-              </div>
-              <div role="separator" className="dropdown-divider"></div>
-              <div className="input-group-text bg-white map-check">
-                <input type="checkbox" aria-label="Checkbox for following text input"/>
-                <div className="input-group-append">
-                  <span className="input-group-text map-check-item">Food</span>
-                </div>
-              </div>
-            </div>
+            <span className="input-group-text pl-2 pr-3">
+              <span className="mr-2">Select time periods:</span>
+              <StepSlider root="py-2" />
+              <span className="ml-2">0 - {time}</span>
+            </span>
           </div>
         </div>
        </div>

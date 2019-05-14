@@ -5,7 +5,7 @@ class Legend extends Component {
 
   render() {
     const {layers,colors} = this.props.feature.active;
-    console.log("legend   render()",this.props.feature.active);
+    // console.log("legend   render()",this.props.feature.active);
     return (
       <div className="map-overlay text-dark container" id='legend'>
         <div>

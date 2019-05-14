@@ -1,9 +1,9 @@
-from flask import Flask 
+from flask import Flask
 from flask import stream_with_context, request, Response
 from flask import send_file
 from flask import jsonify
 from flask_cors import CORS
-import couchdb 
+import couchdb
 import json
 import operator
 
@@ -144,7 +144,7 @@ def getTimeblock():
 
 
 
-# Rando codes 
+# Rondo codes
 @app.route('/aurinObese',methods=['GET'])
 def aurinObese():
 	try:
@@ -166,6 +166,15 @@ def aurinTwr():
 	except Exception as e:
 		return str(e)
 
+@app.route('/past_Geo/<name>/<time>',methods=['GET'])
+def past_Geo(name,time):
+	print(name)
+	try:
+		filename = name + "_past_Geo" + time + ".json"
+		dir  = "./data/" + filename
+		return send_file(dir, attachment_filename=filename)
+	except Exception as e:
+		return str(e)
 
 @app.route('/api/test/hello', methods=['GET'])
 def hellof():
@@ -175,7 +184,3 @@ def hellof():
 if __name__ == '__main__':
 	# app.run(host='0.0.0.0',port=8081)
 	app.run()
-
-
-
-

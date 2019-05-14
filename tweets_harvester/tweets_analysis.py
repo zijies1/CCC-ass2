@@ -1,13 +1,16 @@
 import json
+import re
+import menuitems
 
 def get_foods(text):
-	jsf = open("menuitems.json", encoding='utf-8')
-	menudata = json.load(jsf)
-	foodlist = menudata["menuItems"]
-	lcfoodlist = [x.lower() for x in foodlist]
-	t_textc = text.lower()
-	t_textlist = t_textc.split(" ")
-	return [s for s in lcfoodlist if s in t_textc]
+	foodlist = menuitems.menuItems
+	pro_text = " " + re.sub('[_,.#?!@&()+~:;<>/]',' ',text.lower()) + " "
+	foods = []
+	for food in foodlist:
+		pro_food = " " + food + " "
+		if pro_food in pro_text and food not in foods:
+			foods.append(food)
+	return foods
 	
 def get_period(created_at):
 	datetime = created_at.split()

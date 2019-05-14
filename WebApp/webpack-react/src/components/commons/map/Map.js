@@ -5,8 +5,9 @@ import {changeFeature} from "../../actions";
 mapboxgl.accessToken = "pk.eyJ1IjoiemlqaWVzMSIsImEiOiJjanV3aTcwNjMwY3BtNDRxdDhsYTRnbTBmIn0.Uo9vbFX1xIGYsDhLxEu9hQ";
 
 class Map extends Component {
+
   componentDidUpdate(){
-    console.log(this.props.feature);
+    // console.log(this.props.feature);
     if (this.props.feature.aurin === "Obesity") {
       this.map.setLayoutProperty("aurinOverweight-fills", "visibility", "none");
       this.map.setLayoutProperty("aurinObese-fills", "visibility", "visible");
@@ -14,7 +15,118 @@ class Map extends Component {
       this.map.setLayoutProperty("aurinObese-fills", "visibility", "none");
       this.map.setLayoutProperty("aurinOverweight-fills", "visibility", "visible");
     }
+
   }
+
+  renderPoints(data,name){
+    var clusters = "clusters-" + name;
+    var clusterCount = "cluster-count-" + name;
+    var unclusteredPoint = "unclustered-point-" + name;
+
+    this.map.addSource(name, {
+      "type": "geojson",
+      "data": data,
+      "cluster": true,
+      "clusterMaxZoom": 14, //Max zoom to cluster points on
+      "clusterRadius": 50 //Radius of each cluster when clustering points (defaults to 50)
+    });
+
+    this.map.addLayer({
+        "id": clusters,
+        "type": "circle",
+        "source": name,
+        "filter": ["has", "point_count"],
+        "layout": {},
+        "paint": {
+          "circle-color": [
+            "step",
+            ["get", "point_count"],
+            "#51bbd6",
+            100,
+            "#f1f075",
+            750,
+            "#f28cb1"
+          ],
+          "circle-radius": [
+            "step",
+            ["get", "point_count"],
+            20,
+            100,
+            30,
+            750,
+            40
+          ]
+        }
+    });
+    this.map.addLayer({
+      "id": clusterCount,
+      "type": "symbol",
+      "source": name,
+      "filter": ["has", "point_count"],
+      "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+      }
+    });
+
+    this.map.addLayer({
+      "id": "unclusteredPoint",
+      "type": "circle",
+      "source": name,
+      "filter": ["!", ["has", "point_count"]],
+      "paint": {
+      "circle-color": "#11b4da",
+      "circle-radius": 4,
+      "circle-stroke-width": 1,
+      "circle-stroke-color": "#fff"
+      }
+    });
+
+    // // When the mouse leaves the state-fill layer, update the feature state of the
+    // // previously hovered feature.
+    this.map.on("mouseleave",clusters, ()=> {
+      this.map.getCanvas().style.cursor = "";
+    });
+
+    this.map.on("click", clusters, (e) => {
+      var features = this.map.queryRenderedFeatures(e.point, { layers: [clusters] });
+      var clusterId = features[0].properties.cluster_id;
+      this.map.getSource(name).getClusterExpansionZoom(clusterId, (err, zoom)=> {
+        if (err){return;}
+        this.map.easeTo({
+          center: features[0].geometry.coordinates,
+          zoom: zoom
+        });
+      });
+    });
+
+    this.map.on("click", "unclusteredPoint", (e) => {
+      console.log(e.features);
+      if(e.features.length > 0){
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.message;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(description)
+        .addTo(this.map);
+      }
+    });
+
+    this.map.on("mouseenter", clusters, () => {
+      this.map.getCanvas().style.cursor = "pointer";
+    });
+
+  }
+
   componentDidMount() {
     console.log(this.props.data);
     var hoveredObId = null;
@@ -25,7 +137,7 @@ class Map extends Component {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [145.214,-37.829],
+      center: this.props.map.center,
       zoom: 8
     });
     this.map.addControl(new mapboxgl.NavigationControl());
@@ -39,13 +151,7 @@ class Map extends Component {
         "type": "geojson",
         "data": aurinOverweight
       });
-      this.map.addSource("twrJson", {
-        "type": "geojson",
-        "data": twrJson,
-        "cluster": true,
-        "clusterMaxZoom": 14, // Max zoom to cluster points on
-        "clusterRadius": 50 // Radius of each cluster when clustering points (defaults to 50)
-      });
+
 
       this.map.addLayer({
           "id": "aurinObese-fills",
@@ -99,58 +205,7 @@ class Map extends Component {
         }
       });
 
-      this.map.addLayer({
-          "id": "clusters",
-          "type": "circle",
-          "source": "twrJson",
-          "filter": ["has", "point_count"],
-          "layout": {},
-          "paint": {
-            "circle-color": [
-              "step",
-              ["get", "point_count"],
-              "#51bbd6",
-              100,
-              "#f1f075",
-              750,
-              "#f28cb1"
-            ],
-            "circle-radius": [
-              "step",
-              ["get", "point_count"],
-              20,
-              100,
-              30,
-              750,
-              40
-            ]
-          }
-      });
-
-      this.map.addLayer({
-        "id": "cluster-count",
-        "type": "symbol",
-        "source": "twrJson",
-        "filter": ["has", "point_count"],
-        "layout": {
-        "text-field": "{point_count_abbreviated}",
-        "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-        "text-size": 12
-        }
-      });
-
-      this.map.addLayer({
-        "id": "unclustered-point",
-        "type": "circle",
-        "source": "twrJson",
-        "filter": ["!", ["has", "point_count"]],
-        "paint": {
-        "circle-color": "#11b4da",
-        "circle-radius": 4,
-        "circle-stroke-width": 1,
-        "circle-stroke-color": "#fff"
-        }
-      });
+      this.renderPoints(twrJson,"twrJson");
 
       if (this.props.feature.aurin === "Obesity") {
         this.map.setLayoutProperty("aurinOverweight-fills", "visibility", "none");
@@ -197,48 +252,6 @@ class Map extends Component {
         }
         hoveredObId =  null;
       });
-
-      // When the mouse leaves the state-fill layer, update the feature state of the
-      // previously hovered feature.
-      this.map.on("mouseleave","clusters", ()=> {
-        this.map.getCanvas().style.cursor = "";
-      });
-
-      this.map.on("click", "clusters", (e) => {
-        var features = this.map.queryRenderedFeatures(e.point, { layers: ["clusters"] });
-        var clusterId = features[0].properties.cluster_id;
-        this.map.getSource("twrJson").getClusterExpansionZoom(clusterId, (err, zoom)=> {
-          if (err){return;}
-          this.map.easeTo({
-            center: features[0].geometry.coordinates,
-            zoom: zoom
-          });
-        });
-      });
-
-      this.map.on("click", "unclustered-point", (e) => {
-        console.log(e.features);
-        if(e.features.length > 0){
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var description = e.features[0].properties.message;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(description)
-          .addTo(this.map);
-        }
-      });
-
-      this.map.on("mouseenter", "clusters", () => {
-        this.map.getCanvas().style.cursor = "pointer";
-      });
     });
   }
 
@@ -253,7 +266,8 @@ class Map extends Component {
 function mapStateToProps(state) {
   return {
     data:state.data,
-    feature:state.feature
+    feature:state.feature,
+    map:state.map
   };
 }
 

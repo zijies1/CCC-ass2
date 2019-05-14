@@ -13,7 +13,7 @@ export default class ABOUT extends React.Component {
                   About the project
                 </h1>
                 <p className="lead pb-3 text-secondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus obcaecati alias rerum dolore fugiat debitis?
+                  This project includes all original works of team 37 for Assignment 2 (COMP90024 Cluster and cloud computing), which is about building corroboratory instances on Nectar research cloud and based on which we retrieve information from Twitter in cities across Australia. Finally, we would analyse these data combined with data from the AURIN platform, in order to dig out interesting stories, particularly in the scenario of Gluttony, one of the seven deadly sins.
                 </p>
               </div>
 

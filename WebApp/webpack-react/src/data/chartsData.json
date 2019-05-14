@@ -1,0 +1,62 @@
+{
+  "collections":[
+    {
+      "year":14,
+      "cities":[
+        {
+          "city":"Melbourne",
+          "num": 503,
+          "foodtags": [["port", 4745], ["tea", 4228], ["coffee", 2798], ["ham", 2683], ["cafe", 1758]],
+          "timeblocks": {"Timeblock1 0-3": 4167, "Timeblock2 3-6": 4156, "Timeblock3 6-9": 4308, "Timeblock4 9-12": 4714, "Timeblock5 12-15": 2652, "Timeblock6 15-18": 637, "Timeblock7 18-21": 968, "Timeblock8 21-0": 3288}
+        },
+        {
+          "city":"Sydney",
+          "num": 2197,
+          "foodtags": [["port", 16918], ["tea", 14560], ["coffee", 9310], ["ham", 9205], ["cafe", 7404]],
+          "timeblocks": {"Timeblock1 0-3": 14527, "Timeblock2 3-6": 13570, "Timeblock3 6-9": 15746, "Timeblock4 9-12": 17801, "Timeblock5 12-15": 8497, "Timeblock6 15-18": 1978, "Timeblock7 18-21": 4112, "Timeblock8 21-0": 12956}
+        },
+        {
+          "city":"Perth",
+          "num":  408,
+          "foodtags": [["port", 3566], ["tea", 2934], ["ham", 2618], ["coffee", 1610], ["jam", 1160]],
+          "timeblocks": {"Timeblock1 0-3": 2558, "Timeblock2 3-6": 2636, "Timeblock3 6-9": 3001, "Timeblock4 9-12": 3504, "Timeblock5 12-15": 3294, "Timeblock6 15-18": 1419, "Timeblock7 18-21": 385, "Timeblock8 21-0": 1182}
+        },
+        {
+          "city":"Brisbane",
+          "num": 395,
+          "foodtags": [["tea", 2825], ["port", 2763], ["ham", 2126], ["coffee", 2058], ["jam",1573 ]],
+          "timeblocks": {"Timeblock1 0-3": 2772, "Timeblock2 3-6": 2609, "Timeblock3 6-9": 2780, "Timeblock4 9-12": 3251, "Timeblock5 12-15": 1916, "Timeblock6 15-18": 614, "Timeblock7 18-21": 718, "Timeblock8 21-0": 2339}
+        }
+      ]
+    },
+    {
+      "year":15,
+      "cities":[
+        {
+          "city":"Melbourne",
+          "num": 524,
+          "foodtags": [["tea", 5959], ["port", 4329], ["coffee", 3712], ["ham", 2533], ["cafe", 2502]],
+          "timeblocks": {"Timeblock1 0-3": 4591, "Timeblock2 3-6": 4259, "Timeblock3 6-9": 4412, "Timeblock4 9-12": 4615, "Timeblock5 12-15": 2495, "Timeblock6 15-18": 785, "Timeblock7 18-21": 1409, "Timeblock8 21-0": 3626}
+        },
+        {
+          "city":"Sydney",
+          "num": 1768,
+          "foodtags": [["port", 12689], ["tea", 11149], ["coffee", 8418], ["cafe", 6626], ["ham", 6100]],
+          "timeblocks": {"Timeblock1 0-3": 12085, "Timeblock2 3-6": 11147, "Timeblock3 6-9": 12763, "Timeblock4 9-12": 13538, "Timeblock5 12-15": 5588, "Timeblock6 15-18": 1493, "Timeblock7 18-21": 3505, "Timeblock8 21-0": 10360}
+        },
+        {
+          "city":"Perth",
+          "num": 385,
+          "foodtags": [["ham", 2983], ["port", 2942], ["tea", 2546], ["coffee", 1930], ["cafe", 1774]],
+          "timeblocks": {"Timeblock1 0-3": 2392, "Timeblock2 3-6": 2794, "Timeblock3 6-9": 2844, "Timeblock4 9-12": 3153, "Timeblock5 12-15": 2715, "Timeblock6 15-18": 1238, "Timeblock7 18-21": 542, "Timeblock8 21-0": 1214}
+        },
+        {
+          "city":"Brisbane",
+          "num": 350,
+          "foodtags": [["port", 2728], ["tea", 2518], ["coffee", 2324], ["ham", 1884], ["cafe", 1418]],
+          "timeblocks": {"Timeblock1 0-3": 2875, "Timeblock2 3-6": 2359, "Timeblock3 6-9": 2708, "Timeblock4 9-12": 2814, "Timeblock5 12-15": 1223, "Timeblock6 15-18": 316, "Timeblock7 18-21": 636, "Timeblock8 21-0": 2275}
+        }
+      ]
+    }
+  ]
+}

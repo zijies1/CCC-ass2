@@ -6,6 +6,7 @@ import Footer from './Footer';
 import Experts from './Experts';
 import Header from './Header';
 import homeBg from "../../img/home-bg.jpg";
+import { Link } from "react-router-dom";
 
 // Home page component
 class Home extends React.Component {
@@ -20,12 +21,12 @@ class Home extends React.Component {
             <div className="dark-overlay">
               <div className="home-inner container">
                 <div className="jumbotron text-white bg-transparent text-center">
-                  <h1 className="display-2">Hello, world!</h1>
-                  <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                  <h1 className="display-2">TheDeadlySins-Gluttony</h1>
+                  <p className="lead">Gluttony (Latin: gula, derived from the Latin gluttire meaning "to gulp down or swallow") means over-indulgence and over-consumption of food, drink, or wealth items, particularly as status symbols.</p>
                   <hr className="my-4" />
-                  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                  <p>This website dives into the beauty of big data connecting gluttony with tweets data and analytically shows them on the map of Australia.</p>
                   <p className="lead">
-                    <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    <Link to="/map" ><button className="btn btn-primary btn-lg" role="button">Learn more</button></Link>
                   </p>
                 </div>
               </div>

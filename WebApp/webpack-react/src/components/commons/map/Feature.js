@@ -60,10 +60,15 @@ class Feature extends Component {
 
        <div className="row mt-2">
          <div className="input-group">
-           <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{aurin}</button>
-           <div className="dropdown-menu">
-             <button className="dropdown-item " onClick={this.toObesity} >Obesity</button>
-             <button className="dropdown-item" onClick={this.toOverweight}>Overweight</button>
+           <div className="input-group-prepend">
+            <span className="btn btn-primary"> Aurin data </span>
+           </div>
+           <div className="input-group-append">
+             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{aurin}</button>
+             <div className="dropdown-menu">
+               <button className="dropdown-item " onClick={this.toObesity} >Obesity</button>
+               <button className="dropdown-item" onClick={this.toOverweight}>Overweight</button>
+             </div>
            </div>
          </div>
        </div>

@@ -1,4 +1,10 @@
-import {CHANGE_FEATURE,CHANGE_CHART,CHANGE_AURIN} from '../utils/constants';
+import {
+  CHANGE_FEATURE,
+  CHANGE_CHART,
+  CHANGE_AURIN,
+  ADD_DATA,
+  SET_CENTER
+} from '../utils/constants';
 
 export function changeFeature(name) {
   return {
@@ -24,6 +30,25 @@ export function changeAurin(name) {
     type: CHANGE_AURIN,
     payload: {
       name:name
+    }
+  };
+}
+
+export function addData(data,key) {
+  return {
+    type: ADD_DATA,
+    payload: {
+      data:data,
+      key:key
+    }
+  };
+}
+
+export function setCenter(key) {
+  return {
+    type: SET_CENTER,
+    payload: {
+      key:key
     }
   };
 }
